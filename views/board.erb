@@ -16,7 +16,11 @@
       <% if current_user?(message['author_id']) %>
         <h4>You said: </h4>
       <% else %>
-        <a href="/users/<%= message['author_id']%>/profile"><h4><%= format_username(message['author_username']) %></h4></a>
+        <% if message['author_username'] %>
+          <a href="/users/<%= message['author_id']%>/profile"><h4><%= format_username(message['author_username']) %></h4></a>
+        <% else %>
+          <h4><%= format_username(message['author_username']) %></h4>
+        <% end %>
       <% end %>
       <h5><%= format_time(message['posted_on']) %></h5>
       <p><%== format_text(message['content']) %></p>

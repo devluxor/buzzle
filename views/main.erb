@@ -65,9 +65,9 @@
       <div class='modal-content'>
         <form action="/new_board" method="post">
           <label for="title">Title: </label>
-          <input type="text" name="title" >
+          <input type="text" name="title" pattern="[\w\d!?;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
           <label for="description">Description: </label>
-          <input type="text" name="description">
+          <input type="text" name="description" pattern="[\w\d!?;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
           <label for="color">Select a color: </label>
           <select name="color">
             <option disabled>--Please, select a color --</option>

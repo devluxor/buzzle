@@ -815,6 +815,10 @@ div.icons {
   height: 150px;
 }
 
+.send.message-textarea {
+  height: 100px;
+}
+
 
 .profile-form{
   border-top: 1px solid rgb(214, 214, 214);

@@ -7,11 +7,11 @@
       <div class="profile-names">
         <form action="/settings" method="post" id="edit_profile">
           <label for="password">Old password: </label>
-          <input type="password" name="old_password">
+          <input type="password" name="old_password" pattern="[\w\d]{3,30}" title="Only from 3 to 30 alphanumeric characters and underscores are allowed.">
           <label for="password">New password: </label>
-          <input type="password" name="new_password">
+          <input type="password" name="new_password" pattern="[\w\d]{3,30}" title="Only from 3 to 30 alphanumeric characters and underscores are allowed.">
           <label for="password">Repeat new password: </label>
-          <input type="password" name="new_password_confirmation">
+          <input type="password" name="new_password_confirmation" pattern="[\w\d]{3,30}" title="Only from 3 to 30 alphanumeric characters and underscores are allowed.">
           <button for="edit_profile" type="submit">Update password!</button>
         </form>
       </div>
