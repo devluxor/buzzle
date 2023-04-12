@@ -796,12 +796,12 @@ div.icons {
 .card.big.message,
 .card.board {
   max-width: 1300px;
-  word-break: break-all; 
+  word-break: keep-all;
 }
 
 .card.big.message > * {
   flex: auto;
-  word-break: break-all; 
+  word-break: keep-all; 
 }
 
 .edit-board.message-textarea {

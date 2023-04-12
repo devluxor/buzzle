@@ -50,7 +50,7 @@
             <button class="search-button" type="submit">
               🔎
             </button>
-            <input type="text" name="term" placeholder="Search..." maxlength="100" pattern="[\w\d!?;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
+            <input type="text" name="term" placeholder="Search..." pattern="[\w\d\s!?;,.:\(\)]{2,100}" title="Only from 2 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
           </form>
         </div>
 
@@ -107,7 +107,7 @@
                       <img src="/images/profile/<%= user['portrait'] %>" alt="Trend user avatar">
                     <div class="trend-text">
                       <h4>@<%= user['username'].downcase %></h4>
-                      <p><%= user['about_me']&.[](0..20) %></p>
+                      <p><%= user['about_me']&.[](0..50) %></p>
                     </div>
                     </a>
                 </div>

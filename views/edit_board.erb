@@ -8,10 +8,10 @@
         <form action="/boards/<%= @board_info['id'] %>/edit" method="post">
           <label for="title">Board title: </label>
           <input type="text" name="title" value="<%= @board_info['title'] %>"
-          pattern="[\w\d!?;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
+          pattern="[\w\d\s!?:;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
           <label for="description">Board description: </label>
           <input type="text" name="description" value="<%= @board_info['description'] %>"
-          pattern="[\w\d!?;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
+          pattern="[\w\d\s!?:;,.()]{3,100}" title="Only from 3 to 100 alphanumeric characters, punctuation, parentheses, '!' and '?' are allowed.">
           <label for="color">Select a color: </label>
           <select name="color">
             <option disabled>--Please, select a color --</option>

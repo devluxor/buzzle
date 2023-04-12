@@ -85,6 +85,7 @@ input, select {
 }
 
 textarea {
+  border: none;
   background-color: #dbe2ec;
   border-radius: 10px;
 }
