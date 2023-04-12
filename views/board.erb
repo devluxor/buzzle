@@ -1,0 +1,72 @@
+<% content_for :button do %>
+  <% if @board_author_id %>
+    <button class="modal-toggle">Post a new message!</button>
+  <% end %>
+<% end %>
+
+<h2 class="section-title"><%= @title %> <%= @description ? "- #{@description}" : nil %></h2>
+
+<div class="board-big">
+  <% @messages.each do |message|%>
+    <% unless message['id'] %>
+      <h6>Oops...! No messages yet!</h6>
+      <% break %>
+    <% end%>
+    <div class="card big message <%= current_user?(message['author_id']) ? 'sender' : nil %>">
+      <% if current_user?(message['author_id']) %>
+        <h4>You said: </h4>
+      <% else %>
+        <a href="/users/<%= message['author_id']%>/profile"><h4><%= format_username(message['author_username']) %></h4></a>
+      <% end %>
+      <h5><%= format_time(message['posted_on']) %></h5>
+      <p><%== format_text(message['content']) %></p>
+      <% if current_user?(message['author_id']) %>
+        <div class="edit-buttons">
+          <form action="/boards/<%= message['board_id'] %>/edit/<%= message['id'] %>" method="get">
+            <button type="submit" class="edit-icon">
+              📝
+            </button>
+          </form>
+          <form action="/boards/<%= message['board_id'] %>/edit/<%= message['id'] %>/delete" method="post" class="delete_board_message">
+            <button type="submit" class="edit-icon">
+              ❌
+            </button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+  <% end%>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/boards/<%=@id%>?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/boards/<%=@id%>?page=<%= page_number%>" class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+    <a href="/boards/<%=@id%>?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>
+
+<% content_for :modal do %>
+  <div class='modal-wrapper'>
+
+        <div class='modal'>
+          <button class='modal-toggle modal-button'>x</button>
+          <h2 class='modal-title'>Contribute to the board!</h2>
+          <div class='modal-content'>
+            <form action="/boards/<%= @id %>" method="post">
+              <label for="message">Say something: </label>
+              <textarea class="board message-textarea" name="message"></textarea>
+              <button type="submit">Post the message!</button>
+            </form>
+          </div>
+        </div>
+
+        <script src="/js/modal.js"></script> 
+      </div>
+<% end %>

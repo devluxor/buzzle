@@ -1,0 +1,31 @@
+<h2 class="section-title">History of board messages</h2>
+
+<div class="board-big">
+  <% if @messages.ntuples.zero? %>
+    <h2>Oops...! No board messages yet! </h2>
+  <% else %>
+    <% @messages.each do |message| %>
+      <a href="/boards/<%= message['board_id'] %>">
+        <div class="card big message <%= message['board_color']%>-border animated">
+            <h4 class="history-time"><%= format_time(message['posted_on']) %></h4>
+            <h3 class="history-board">In <%= message['board_title'] %>:</h3>
+            <p><%== format_text(message['content']) %></p>
+        </div>
+      </a>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/history?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/history?page=<%= page_number%>" class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+    <a href="/history?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>

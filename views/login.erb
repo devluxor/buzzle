@@ -1,0 +1,17 @@
+<div class="pre-access-card">
+  <div class="login-form">
+    <form action="/login" method="post">
+      <label for="username">Username: </label>
+      <input type="text" name="username" value="<%= @user_input_data&.[](:username) %>">
+      <label for="password">Password: </label>
+      <input type="password" name="password">
+      <button type="submit">Sign in!</button>
+    </form>
+    <a href="/new_user"><button>Create a new account!</button></a>
+  </div>
+
+  <div class="welcome-message">
+    <img class="buzzle-logo" src="/images/icons/dashboard.svg" alt="Buzzle logo">
+    <h1>Welcome to Buzzle!</h1>
+  </div>
+</div>

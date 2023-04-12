@@ -1,0 +1,24 @@
+<h2 class="board-title">Settings</h2>
+
+<div class="board-big">
+
+  <div class="card big profile indian-border settings">
+    <div class="profile-top">
+      <div class="profile-names">
+        <form action="/settings" method="post" id="edit_profile">
+          <label for="password">Old password: </label>
+          <input type="password" name="old_password">
+          <label for="password">New password: </label>
+          <input type="password" name="new_password">
+          <label for="password">Repeat new password: </label>
+          <input type="password" name="new_password_confirmation">
+          <button for="edit_profile" type="submit">Update password!</button>
+        </form>
+      </div>
+    </div>
+
+    <form action="/delete_account" method="post" class="delete_account">
+      <button class="delete-account" type="submit">Delete account!</button>
+    </form>
+  </div>
+</div>

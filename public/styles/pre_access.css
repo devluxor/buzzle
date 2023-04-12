@@ -1,0 +1,133 @@
+body {
+  animation: animateBg 25s linear infinite;
+  background-color: #e2e8f0;
+
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes animateBg {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 0%; }
+}
+
+.flash-message {
+  position: fixed;
+  top: 50px;
+}
+
+.pre-access-card {
+  width: 750px;
+  background-color: white;
+  border-radius: 5px;
+  border-left: 8px solid orange;
+  justify-self: start;
+  padding: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 80px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.pre-access-card.new-user {
+  width: auto;
+}
+
+.new-user-button {
+  color: white;
+  background-color: #1992d4;
+}
+
+.new-user-button:active {
+  background-color: white;
+  color: #1992d4;
+}
+
+.login-form > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  margin-bottom: 30px;
+}
+
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+}
+
+.buzzle-logo {
+  width: 100px;
+  filter: invert(40%) sepia(70%) saturate(1302%) hue-rotate(173deg) brightness(97%) contrast(81%);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  margin-bottom: 30px;
+}
+
+input, select {
+  background-color: #dbe2ec;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  flex: 1;
+  padding-left: 15px;
+  width: 280px;
+}
+
+textarea {
+  background-color: #dbe2ec;
+  border-radius: 10px;
+}
+
+select {
+  width: 280px;
+}
+
+textarea {
+  width: 280px;
+  resize: none;
+}
+
+button {
+  background-color: white;
+  font-weight: 600;
+  color: #1992d4;
+  border: 1px solid #1992d4;
+  border-radius: 20px;
+  padding: 6px 25px;
+  transition: .2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  color: white;
+  background-color: #1992d4;
+}
+
+a {
+  margin-top: 20px;
+  align-self: center;
+}
+
+a > button {
+  color: white;
+  background-color: #1992d4;
+}
+
+a > button:active {
+  background-color: white;
+  color: #1992d4;
+}

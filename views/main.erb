@@ -1,0 +1,87 @@
+<% content_for :button do %>
+  <button class="modal-toggle">Post a new board!</button>
+<% end %>
+
+<h1 class="section-title">Boards</h1>
+
+<div class="board-cards">
+
+  <% if @boards.empty? %>
+    <h2>Oops...! No boards yet! </h2>
+  <% else %>
+    <% @boards.each do |board| %>
+      <a href="boards/<%= board['id']%>">
+        <article class="card board <%= board['color']%>-border">
+          <div class="icons">
+            <h5 class="board-author-date">by <%= format_username(board['author_username']) %>, on <%= board['created_on'][0..10] %>: </h5>
+              <% if current_user?(board['author_id']) %>
+                <form class="edit-form" action="/boards/<%= board['id'] %>/edit" method="get">
+                  <button type="submit" class="icon edit-icon">📝</button>
+                </form>
+                <form class="delete-form delete_board" action="/boards/<%= board['id'] %>/delete" method="post" class="delete_board">
+                  <button type="submit" class="icon delete-icon">❌</button>
+                </form>
+              <% end %>
+          </div>
+          <h2 class="board-title"><%= board['title'] %></h2>
+          <h3 class="board-description"><%= board['description'] %></h3>
+          <div class="board-last_message">
+
+            <% if board['last_message'].nil? %>
+              <h6>No messages yet!</h6>
+            <% else %>
+              <p><%= "#{format_time(board['last_message_posted'])}: #{format_last_message(board['last_message'])}" %></p>
+            <% end %>
+    
+          </div>
+
+
+        </article>
+      </a>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/?page=<%= page_number%>" class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+      <a href="/?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>
+
+<% content_for :modal do %>
+  <div class='modal-wrapper'>
+
+    <div class='modal card-modal'>
+      <button class='modal-toggle modal-button'>x</button>
+      <h2 class='modal-title'>Create a new board</h2>
+      <div class='modal-content'>
+        <form action="/new_board" method="post">
+          <label for="title">Title: </label>
+          <input type="text" name="title" >
+          <label for="description">Description: </label>
+          <input type="text" name="description">
+          <label for="color">Select a color: </label>
+          <select name="color">
+            <option disabled>--Please, select a color --</option>
+            <% BOARD_COLORS.each do |color| %>
+              <option value="<%= color %>" <%= color == session[:color] ? 'selected' : nil %>>
+                <%= color.capitalize[0...color.index('.')] %>
+              </option>
+            <% end %>
+          </select>
+          <button type="submit">Create board!</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/modal.js"></script> 
+  </div>
+<% end %>

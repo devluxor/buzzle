@@ -1,0 +1,68 @@
+<h2 class="board-title">Profile</h2>
+
+<div class="board-big">
+
+  <div class="card big profile">
+
+      <div class="profile-top profilemain">
+        <img class="profile-picture" src="/images/profile/<%= @user_info['portrait'] %>" alt="Profile picture">
+        <div class="profile-names">
+          <h4><%= @user_info['username'] %></h4>
+          <h5><%= "#{@user_info['first_name']} #{@user_info['last_name']}" %></h5>
+          <h5>Score: <%= @user_info['score'] %></h5>
+          <p class="profile-about_me"><%= @user_info['about_me'] %></p>
+        </div>
+      </div>
+
+      <% unless current_user?(@user_info['id']) %>
+        <button class="modal-toggle">Send message</button>
+      <% end %>
+
+
+    <% if current_user?(@user_info['id']) %>
+      <form class="profile-form" action="/users/<%=@user_info['id']%>/profile" method="post">
+        <fieldset class="profile-fieldset">
+          <legend> Update your data: </legend>
+          <label for="username">Username: </label>
+          <input type="text" name="username" value="<%= @user_info['username']%>">
+          <label for="first_name">First name: </label>
+          <input type="text" name="first_name" value="<%= @user_info['first_name']%>">
+          <label for="last_name">Last name: </label>
+          <input type="text" name="last_name" value="<%= @user_info['last_name']%>">
+          <label for="portrait">Select a portrait: </label>
+          <select name="portrait">
+            <option disabled>--Please, select a profile picture --</option>
+            <% load_portraits.each do |portrait| %>
+              <option value="<%= portrait %>" <%= portrait == session[:portrait] ? 'selected' : nil %>>
+                <%= portrait.capitalize[0...portrait.index('.')] %>
+              </option>
+            <% end %>
+          </select>
+          <label for="about_me">About me: </label>
+          <textarea class="profile-textarea" name="about_me"><%= @user_info['about_me'] %></textarea>
+          <button class="profile-button" type="submit">Update your data!</button>
+        </fieldset>
+      </form>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :modal do %>
+  <div class='modal-wrapper'>
+
+        <div class='modal'>
+          <button class='modal-toggle modal-button'>x</button>
+          <h2 class='modal-title'>Send a message to @<%= @user_info['username'].downcase %></h2>
+          <div class='modal-content'>
+            <form action="/send_message" method="post">
+              <input type="text" name="receiver_id" value ="<%= @user_info['id'] %>" hidden>
+              <label for="message">Message: </label>
+              <textarea class="message-textarea" name="message"></textarea>
+              <button type="submit">Send the message!</button>
+            </form>
+          </div>
+        </div>
+
+        <script src="/js/modal.js"></script> 
+      </div>
+<% end %>

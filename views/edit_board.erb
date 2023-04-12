@@ -1,0 +1,28 @@
+<h2 class="board-title">Edit board</h2>
+
+<div class="board-big">
+
+  <div class="card big profile dark-green-border">
+    <div class="profile-top">
+      <div class="profile-names">
+        <form action="/boards/<%= @board_info['id'] %>/edit" method="post">
+          <label for="title">Board title: </label>
+          <input type="text" name="title" value="<%= @board_info['title'] %>">
+          <label for="description">Board description: </label>
+          <input type="text" name="description" value="<%= @board_info['description'] %>">
+          <label for="color">Select a color: </label>
+          <select name="color">
+            <option disabled>--Please, select a color --</option>
+             <% BOARD_COLORS.each do |color| %>
+               <option value="<%= color %>" <%= color == @board_info['color'] ? 'selected' : nil %>>
+                 <%= color.capitalize %>
+               </option>
+            <% end %>
+          </select>
+          <button type="submit">Edit board</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.main {
+  -webkit-transition: opacity 500ms ease, -webkit-filter 500ms ease;
+  transition: opacity 500ms ease, -webkit-filter 500ms ease;
+  transition: filter 500ms ease, opacity 500ms ease;
+  transition: filter 500ms ease, opacity 500ms ease, -webkit-filter 500ms ease;
+}
+
+.modal-active .content {
+  opacity: 1;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 100vh;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .01;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  overflow: auto;
+  -webkit-transition: opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+  transition: opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+  transition: transform 300ms ease 200ms, filter 300ms ease 200ms, opacity 300ms ease 200ms;
+  transition: transform 300ms ease 200ms, filter 300ms ease 200ms, opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+}
+
+.modal-wrapper.modal-active {
+  top: 350px;
+  margin-top: -150px;
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.modal {
+  position: relative;
+  background: white;
+  padding: 80px 20px 20px;
+  overflow: hidden;
+  width: min-content;
+  height: 300px;
+  border-radius: 10px;
+  margin: 0 auto;
+  border-radius: 5px;
+  border-left: 8px solid seagreen;
+  justify-self: start;
+  padding: 25px 50px 25px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.modal-content > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content > form > button {
+  background-color: white;
+  font-weight: 600;
+  color: #1992d4;
+  border: 1px solid #1992d4;
+  border-radius: 20px;
+  padding: 6px 25px;
+  transition: .2s ease;
+}
+
+.modal-button:active,
+.modal-content > form > button:active {
+  color: white;
+  background-color: #1992d4;
+}
+
+.modal-content > form > input {
+  background-color: #dbe2ec;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  flex: 1;
+  padding-left: 15px;
+  width: 280px;
+}
+
+.modal-title {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.modal-button {
+  border: 1px solid  #1992d4;
+  color: white;
+  background: #1992d4;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 20px;
+}
+
+.message-textarea {
+  resize: none;
+  background-color: #dbe2ec;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  width: 300px;
+}

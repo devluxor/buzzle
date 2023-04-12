@@ -1,0 +1,17 @@
+<h2 class="board-title">Edit your message</h2>
+
+<div class="board-big">
+
+  <div class="card big profile">
+    <div class="profile-top">
+      <div class="profile-names">
+        <form action="/boards/<%= @board_id %>/edit/<%= @message_id %>" method="post">
+          <label for="message">Your message: </label>
+          <textarea class="edit-board message-textarea" name="message"><%= @message %></textarea>
+          <button type="submit">Edit your message!</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

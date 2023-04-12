@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Accept-CH" content="DPR, Width, Viewport-Width, Downlink">
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/modal.css">
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <script src="/js/jquery-3.6.4.js"></script>
+  <script src="/js/alerts.js"></script>
+  <title>Buzzle</title>
+</head>
+<body>
+      <% if session[:error] %>
+        <div class="flash-message error" id="hideme">
+          ❗ <%= session.delete :error %>
+        </div>
+      <% elsif session[:success] %>
+        <div class="flash-message success" id="hideme">
+          ✅ <%= session.delete :success %>
+        </div>
+      <% end %>
+
+    <nav class="sidebar">
+      <div class="sidebar-top">
+        <a href="/"><div class="logo"><img src="/images/icons/dashboard.svg" alt="">Buzzle</div></a>
+      </div>
+
+      <div class="sidebar-middle">
+        <a href="/"><div class="nav-link"><img src="/images/icons/home.svg"><h4>Home</h4></div></a>
+        <a href="/users/<%= session[:user_id] %>/profile"><div class="nav-link"><img src="/images/icons/card-account-details-outline.svg"><h4>Profile</h4></div></a>
+        <a href="/conversations"><div class="nav-link"><img src="/images/icons/message-reply.svg"><h4>Conversations</h4></div></a>
+        <a href="/history"><div class="nav-link"><img src="/images/icons/clock-time-three.svg"><h4>History</h4></div></a>
+      </div>
+      
+      <div class="sidebar-bottom">
+        <a href="/settings"><div class="nav-link"><img src="/images/icons/cog.svg">Settings</div></a>
+        <a href="/logout"><div class="nav-link"><img src="/images/icons/logout.svg">Log out</div></a>
+        <img class="unread-messages" src="/images/icons/exclamation-thick.svg" <%= messages_unread? ? nil : 'hidden' %>>
+      </div>
+    </nav>
+
+    <main class="main">
+      <header class="main-header">
+        <div class="searchbar">
+          <form action="/search" method="post">
+            <button class="search-button" type="submit">
+              🔎
+            </button>
+            <input type="text" name="term" placeholder="Search...">
+          </form>
+        </div>
+
+        <div class="user-status">
+          <img src="/images/icons/bell-ring-outline.svg">
+          <a href="/users/<%= session[:user_id]%>/profile">
+            <img class="user-logo" src="/images/profile/<%= session[:portrait] %>">
+          </a>
+          <%= "#{session[:first_name]} #{session[:last_name]}" %>
+        </div>
+
+        <div class="user-greeting">
+          <a href="/users/<%= session[:user_id]%>/profile">
+            <img src="/images/profile/<%= session[:portrait] %>">
+          </a>
+          <div>
+            <p class="greeting" >Hi there,</p>
+            <p class="username"> <%= "#{session[:first_name]} #{session[:last_name]}" %> (@<%= session[:username].downcase %>)</p>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <%== yield_content :button %>
+        </div>
+      </header>
+
+      <div class="main-content">
+
+        <div class="board">
+          <%== yield %>
+        </div>
+
+        <div class="main-side">
+          <div class="announcements">
+            <p class="announcements-title">Last board messages</p>
+            <div class="announcements-content">
+              <% last_board_messages.each do |message| %>
+                <a class="announcement" href="/boards/<%= message['board_id'] %>">
+                  <div >
+                    <p><%= format_board_title(message['board_title'])%></p>
+                    <div class="text"><%= format_short_message(message['content']) %></div>
+                  </div>
+                </a>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="trending">
+            <h3>Top users</h3>
+            <div class="trending-content">
+              <% top_users.each do |user| %>
+                <div class="trend-element">
+                    <a href="/users/<%= user['id'] %>/profile">
+                      <img src="/images/profile/<%= user['portrait'] %>" alt="Trend user avatar">
+                    <div class="trend-text">
+                      <h4>@<%= user['username'].downcase %></h4>
+                      <p><%= user['about_me']&.[](0..20) %></p>
+                    </div>
+                    </a>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <%== yield_content :modal %>
+    </main>
+</body>
+</html>

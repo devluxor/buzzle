@@ -1,0 +1,66 @@
+<% content_for :button do %>
+  <button class="modal-toggle">Send a message!</button>
+<% end %>
+
+
+<h2 class="board-title">Conversation with @<%=
+if @messages.first['sender_username'] == session[:username]
+  @messages.first['receiver_username'].downcase
+else
+  @messages.first['sender_username'].downcase
+end
+
+%></h2>
+
+<div class="board-big">
+  <% @messages.each do |message| %>
+
+      <div class="card big message <%= current_user?(message['sender_id']) ? 'sender' : nil %>">
+          <h4><%= format_time(message['posted_on']) %></h4>
+          <% if current_user?(message['sender_id']) %>
+            <p>You said: </p>
+          <% else %>
+            <p>@<%= message['sender_username'].downcase %> said: </p>
+          <% end %>
+          <p><%== format_text(message['content']) %></p>
+        </a>
+      </div>
+  <% end %>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/conversations/<%= @conversation_id %>?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/conversations/<%= @conversation_id %>?page=<%= page_number%>" 
+         class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+    <a href="/conversations/<%= @conversation_id %>?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>
+
+<% content_for :modal do %>
+  <div class='modal-wrapper'>
+
+        <div class='modal card purple-border'>
+          <button class='modal-toggle modal-button'>x</button>
+          <h2 class='modal-title'>Send a message!</h2>
+          <div class='modal-content'>
+            <form action="/send_message" method="post">
+              <input type="text" name="receiver_id" hidden value="<%=
+                current_user?(@messages.first['sender_id']) ? @messages.first['receiver_id'] : @messages.first['sender_id']
+              %>">
+              <label for="message">Message: </label>
+              <textarea class="message-textarea" name="message"></textarea>
+              <button type="submit">Send message!</button>
+            </form>
+          </div>
+        </div>
+
+        <script src="/js/modal.js"></script> 
+      </div>
+<% end %>

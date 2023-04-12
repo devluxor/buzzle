@@ -1,0 +1,36 @@
+<h2 class="board-title">Search results for '<%= @term.downcase %>'</h2>
+
+<div class="board-big">
+  <% if @messages.ntuples.zero? %>
+    <h2>Oops...! No results! </h2>
+  <% else %>
+    <% @messages.each do |message| %>
+        <a href="/boards/<%=message['board_id']%>">
+        <div class="card big message <%= message['board_color']%>-border animated">
+            <h3>Board: <%= message['board_title'] %></h3>
+            <h4><%= format_time(message['posted_on']) %></h4>
+            <% if current_user?(message['author_id']) %>
+              <h4>You said: </h4>
+            <% else %>
+              <h4><%= format_username(message['author']) %>:</h4>
+            <% end %>
+            <p><%== format_text(highlight(message['content'], @term)) %></p>
+        </div>
+          </a>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/search?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/search?page=<%= page_number%>" class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+    <a href="/search?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>

@@ -1,0 +1,72 @@
+<% content_for :button do %>
+  <button class="modal-toggle">Begin a conversation!</button>
+<% end %>
+
+<h2 class="section-title">Conversations</h2>
+
+<div class="board-big">
+  <% if @conversations.ntuples.zero? %>
+    <h2>Oops...! No conversations yet! </h2>
+  <% else %>
+    <% @conversations.each do |conversation| %>
+        <a href="/conversations/<%= conversation['id']%>">
+          <div class="card big message conversation">
+              <p class="conversation-time">started on <%= conversation['last_message'][0...10] %>, <%= format_time(conversation['last_message']) %> </p>
+              <% if conversation['user_a_name'] == session[:username] %>
+                <h4>with <%= format_username(conversation['user_b_name']) %></h4>
+              <% else %>
+                <h4>with <%= format_username(conversation['user_a_name']) %></h4>
+              <% end %>
+            <form action="/conversations/<%= conversation['id'] %>/delete" method="post" class="delete_conversation">
+              <button type="submit" class="delete-icon">
+                ❌
+              </button>
+            </form>
+          </div>
+        </a>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @necessary_pages > 1 %>
+  <div class="pagination">
+    <% if @current_page.to_i != 1 %>
+      <a href="/conversations?page=1">&laquo;</a>
+    <% end %>
+    <% (1..@necessary_pages).each do |page_number| %>
+      <a href="/conversations?page=<%= page_number%>" class= "<%= page_number == @current_page.to_i ? 'active' : nil %>"><%= page_number %></a>
+    <% end %>
+    <% if @current_page != @necessary_pages %>
+    <a href="/conversations?page=<%= @necessary_pages %>">&raquo;</a>
+    <% end %>
+  </div> 
+<% end %>
+
+<% content_for :modal do %>
+  <div class='modal-wrapper'>
+
+        <div class='modal card cyan-border'>
+          <button class='modal-toggle modal-button'>x</button>
+          <h2 class='modal-title'>Start a chat with someone!</h2>
+          <div class='modal-content'>
+            <form action="/send_message" method="post">
+              <label for="receiver_id">Select a user:</label>
+              <select name="receiver_id">
+                <option disabled>--Please, select a user --</option>
+                <% load_users.each do |user| %>
+                  <% if user['username'] == session[:username] %>
+                    <% next %>
+                  <% end %>
+                  <option value="<%= user['id'] %>"><%= format_username(user['username']) %></option>
+                <% end %>
+              </select>
+              <label for="message">Message: </label>
+              <textarea class="message-textarea" name="message"></textarea>
+              <button type="submit">Send message!</button>
+            </form>
+          </div>
+        </div>
+
+        <script src="/js/modal.js"></script> 
+      </div>
+<% end %>

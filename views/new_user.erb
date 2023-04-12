@@ -1,0 +1,24 @@
+<div class="pre-access-card new-user">
+  <form action="/new_user" method="post">
+    <label for="username">Username: </label>
+    <input type="text" name="username" value="<%= @user_input_data&.[](:username) %>">
+    <label for="first_name">First name: </label>
+    <input type="text" name="first_name" value="<%= @user_input_data&.[](:first_name) %>">
+    <label for="last_name">Last name: </label>
+    <input type="text" name="last_name" value="<%= @user_input_data&.[](:last_name) %>" >
+    <label for="receiver_id">Select a profile picture:</label>
+    <select name="portrait">
+      <option disabled>--Please, select a profile picture --</option>
+      <% load_portraits.each do |portrait| %>
+        <option value="<%= portrait %>"><%= portrait.capitalize[0...portrait.index('.')] %></option>
+      <% end %>
+    </select>
+    <label for="about_me">Something about me:</label>
+    <textarea name="about_me"><%= @user_input_data&.[](:about_me) %></textarea>
+    <label for="password">Password: </label>
+    <input type="password" name="password">
+    <label for="password_confirmation">Repeat password: </label>
+    <input type="password" name="password_confirmation">
+    <button class="new-user-button" type="submit">Sign up!</button>
+  </form>
+</div>
