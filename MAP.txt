@@ -4,7 +4,8 @@ This is the layout for the application structure:
 ├── Gemfile 
 ├── Gemfile.lock 
 ├── MAP.MD 
-├── README.md 
+├── README.md
+├── DESIGN.md
 ├── buzzle.rb << The application core file. This file includes all the routes.
 |
 ├── db << This folder contains the files needed to interact with the SQL database:
@@ -19,9 +20,10 @@ This is the layout for the application structure:
 |   |
 │   ├── helpers.rb << Defines helper methods to use in route handlers and templates.
 |   |
-│   ├── user_input_validation.rb << Auxiliary methods to validate any kind of user input.
+│   ├── user_input_validation.rb << Auxiliary methods to validate any kind of user input, informing the user of possible errors.
 |   |
-│   └── validation_subroutines.rb << Route-specific `before` filters. 
+│   └── validation_subroutines.rb << Route-specific `before` filters that control restricted access, and redirection in case of errors detected
+                                      in parameters or in the URL
 |
 ├── public << From this folder all static files will be served:
 |   |

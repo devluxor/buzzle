@@ -13,10 +13,10 @@ end
 
   ## If there is a bad input of any kind, a symbol representing the specific error
   ## will be returned from the block associated to each check_parameter call.
-  ## Depending on the type of error, the appropiate html/erb content will be assigned to an
+  ## Depending on the type of error, the appropiate HTML/erb content will be assigned to an
   ## instance variable that will be used as the response body in the route (see ../buzzle.rb),
   ## while displaying a flash error message.
-  ## If no input errors are found in these subroutines, 
+  ## If no input errors are found by these subroutines, 
   ## no values will be assigned to the error-capturing instance variables, 
   ## and the main code in the route will be executed.
 

@@ -56,7 +56,7 @@ INSERT INTO board_messages
 VALUES
 (4, 2, '1967-05-29 17:22:47.493425', 'I think I don''t like her'),
 (2, 1, '1965-12-06 17:22:47.493425', 'What do you need, Paul?'),
-(3, 3, '1969-04-21 17:22:47.493425', 'Something simple, just the four of us'),
+(3, 3, '1969-03-01 17:22:47.493425', 'Something simple, just the four of us'),
 (1, 4, '1968-11-09 17:22:47.493425', 'Haha, he must be one of those people...'),
 (2, 2, '1967-12-31 17:22:47.493425', 'Help me if you can, I''m feeling down'),
 (1, 2, '1967-12-19 17:22:47.493425', 'Even Marylin''s there!'),
@@ -89,11 +89,11 @@ CREATE TABLE private_messages (
 );
 
 INSERT INTO private_messages
-(sender_id, receiver_id, conversation_id, created_on, content, read)
+(sender_id, receiver_id, conversation_id, created_on, content)
 VALUES
-(1, 2, 1, '1970-01-01 19:22:12.321211', 'Goodbye Paul 😢', false ),
-(1, 3, 2, '1970-01-01 19:22:12.321211', 'Goodbye George 😢', false ),
-(1, 4, 3, '1970-01-01 19:22:12.321211', 'Goodbye Ringo 😢', false ),
-(2, 1, 1, '1970-01-02 19:22:12.321211', 'Goodbye John 😢', false );
+(1, 2, 1, '1970-01-01 19:22:12.321211', 'Goodbye Paul 😢'),
+(1, 3, 2, '1970-01-01 19:22:12.321211', 'Goodbye George 😢'),
+(1, 4, 3, '1970-01-01 19:22:12.321211', 'Goodbye Ringo 😢'),
+(2, 1, 1, '1970-01-02 19:22:12.321211', 'Goodbye John 😢');
 
 
