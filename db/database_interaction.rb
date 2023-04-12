@@ -5,8 +5,6 @@ require 'paint'
 require_relative 'queries'
 
 MAX_INTEGER ||= 2_147_483_647
-MAX_BOARDS_PER_PAGE ||= 6
-MAX_MESSAGES_PER_PAGE ||= 3
 
 # Points per action: (see lines 271-273)
 BOARD_MESSAGE ||= 1

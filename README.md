@@ -58,10 +58,32 @@ This will also add some seed data to the database as a sample; these are the sam
 | Ringo    | 123      |
 
 These sample users have created boards, posted messages on them, sent or being sent private messages, etc.
-I invite the reader to create a new user account and interact with them, or to log in with any of these accounts and see the possibilities.
+I invite the reader to create a new user account and interact with them, or to log in with any of these accounts and explore the possibilities of the application.
+
+To start the server running the app, execute the following command on the terminal, inside the main `buzzle/` directory:
+
+```bash
+$ ruby buzzle.rb
+```
+
+As an option, in order to safely load the correct version of certain applications, you can also execute:
+
+```bash
+$ bundle exec ruby buzzle.rb
+```
+
+Finally, to access the app, use the default URL `http://127.0.0.1:4567/` in your browser of choice.
+
 
 ## Configuration
 
+The app has several easily configurable options:
+
+- To change the pagination settings, for example when using multiple monitors or ultrawide devices, you can alter the values assigned to the `MAX_BOARDS_PER_PAGE`, and `MAX_MESSAGES_PER_PAGE` constants in `./db/queries.rb`.
+
+- To change the points each activity adds to the users' score, alter the values assigned to the `BOARD_MESSAGE`, `PRIVATE_MESSAGE`, and `NEW_BOARD` constants in `./db/database_interaction.rb`.
+
+-
 
 
 
