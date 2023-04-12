@@ -17,7 +17,7 @@ Every message in the history of messages and in the search results pages can be 
 
 The application is protected against bad user input, including possible injection attacks, with a double validation system in both the backend and the fronted. The backend input validation system is based on a series of route-specific filters, and methods that specifically inform the user what went wrong, in every possible case, via a flash message that will disappear by itself after a few seconds. This validation system does not only search parameters sent via forms, but also every identifier in each resource URL, including those belonging to the pagination. On top of the backend portion, each form has an HTML-based validation system, for added security. The passwords are never stored as they are, but are encrypted before inserting them in the database. SQL queries have been optimized up to a certain point (n+1 queries were substituted by single queries, etc.)
 
-For more information about the design decisions, SQL specifics, and more technical details, please, don't hesitate on reading the file `DESIGN.md` in this same folder. For a layout of the program, please see `MAP.md`
+For more information about the design decisions, SQL specifics, and more technical details, please, don't hesitate on reading the file `DESIGN.md` in this same folder. For a layout of the program, please see `MAP.txt`
 
 ## Software requirements
 
@@ -48,9 +48,7 @@ Then, to initialize the database in your system, execute:
 $ createdb buzzle && psql -d buzzle < ./db/schema.sql
 ```
 
-This will also add some seed data to the database as a sample.
-
-This is the data to access with the sample users credentials:
+This will also add some seed data to the database as a sample; these are the sample users' credentials:
 
 | Username | Password |
 |----------|----------|
@@ -59,10 +57,13 @@ This is the data to access with the sample users credentials:
 | George   | 123      |
 | Ringo    | 123      |
 
-Each of these users have created boards, posted messages on them, sent or being sent private messages, etc.
+These sample users have created boards, posted messages on them, sent or being sent private messages, etc.
 I invite the reader to create a new user account and interact with them, or to log in with any of these accounts and see the possibilities.
 
-## How to use the application
+## Configuration
+
+
+
 
 
 

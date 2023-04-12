@@ -1,0 +1,42 @@
+This is the layout for the application structure:
+
+.
+├── Gemfile 
+├── Gemfile.lock 
+├── MAP.MD 
+├── README.md 
+├── buzzle.rb << The application core file. This file includes all the routes.
+|
+├── db << This folder contains the files needed to interact with the SQL database:
+│   │
+│   ├── database_interaction.rb << This files defines the `DatabaseInteraction` class
+|   |
+│   ├── queries.rb << This file defines all the SQL queries used by the `DatabaseInteraction` instace methods
+|   |
+│   └── schema.sql << Contains the schema and the seed data necessary for the database intialization.
+|
+├── lib << This folder contains the files necessary to run the application:
+|   |
+│   ├── helpers.rb << Defines helper methods to use in route handlers and templates.
+|   |
+│   ├── user_input_validation.rb << Auxiliary methods to validate any kind of user input.
+|   |
+│   └── validation_subroutines.rb << Route-specific `before` filters. 
+|
+├── public << From this folder all static files will be served:
+|   |
+│   ├── images
+│   │   │
+│   │   ├── icons
+│   │   └── profile 
+│   │
+│   ├── js
+│   │ 
+│   └── styles
+|       |
+│       ├── main.css
+│       ├── modal.css
+│       ├── pre_access.css
+│       └── reset.css
+|
+└── views << This folder contains all the `.erb` templates

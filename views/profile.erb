@@ -19,7 +19,6 @@
         <button class="modal-toggle">Send message</button>
       <% end %>
 
-
     <% if current_user?(@user_info['id']) %>
       <form class="profile-form" action="/users/<%=@user_info['id']%>/profile" method="post">
         <fieldset class="profile-fieldset">
