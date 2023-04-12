@@ -1,6 +1,6 @@
 require 'time'
 
-RESTRICTED_URLS ||= %r{\A\/\z|profile|messages|boards|history|settings|search|conversation|logout}
+RESTRICTED_URLS ||= %r{\A\/\z|delete|profile|message|board|history|settings|search|conversation|logout}
 PORTRAITS_PATH ||= './public/images/profile/*.png'.freeze
 BOARD_COLORS ||= %w{ orange red blue green black yellow purple }.freeze
 # error messages in #to_error_message, lines 107-130.

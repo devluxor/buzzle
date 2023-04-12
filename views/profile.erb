@@ -26,11 +26,11 @@
           <label for="username">Username: </label>
           <input type="text" name="username" value="<%= @user_info['username']%>" pattern="[\w\d]{3,30}" title="Only from 3 to 30 alphanumeric characters and underscores are allowed.">
           <label for="first_name">First name: </label>
-          <input type="text" name="first_name" value="<%= @user_input_data&.[](:first_name) %>" pattern="[\w\d ']{3,30}" title="Only from 3 to 30 alphanumeric characters, spaces and underscores are allowed.">
+          <input type="text" name="first_name" value="<%= @user_input_data&.[](:first_name) %>" pattern="[\w\d ']{3,40}" title="Only from 3 to 40 alphanumeric characters, spaces and underscores are allowed.">
           <label for="first_name">First name: </label>
-          <input type="text" name="first_name" value="<%= @user_info['first_name']%>" pattern="[\w\d ']{3,30}" title="Only from 3 to 30 alphanumeric characters, spaces and underscores are allowed.">
+          <input type="text" name="first_name" value="<%= @user_info['first_name']%>" pattern="[\w\d ']{3,40}" title="Only from 3 to 40 alphanumeric characters, spaces and underscores are allowed.">
           <label for="last_name">Last name: </label>
-          <input type="text" name="last_name" value="<%= @user_info['last_name']%>" pattern="[\w\d ']{3,30}" title="Only from 3 to 30 alphanumeric characters, spaces and underscores are allowed.">
+          <input type="text" name="last_name" value="<%= @user_info['last_name']%>" pattern="[\w\d ']{3,40}" title="Only from 3 to 40 alphanumeric characters, spaces and underscores are allowed.">
           <label for="portrait">Select a portrait: </label>
           <select name="portrait">
             <option disabled>--Please, select a profile picture --</option>
