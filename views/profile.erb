@@ -10,6 +10,7 @@
           <h4><%= @user_info['username'] %></h4>
           <h5><%= "#{@user_info['first_name']} #{@user_info['last_name']}" %></h5>
           <h5>Score: <%= @user_info['score'] %></h5>
+          <h5>Joined: <%= format_time(@user_info['created_on']) %></h5>
           <p class="profile-about_me"><%= @user_info['about_me'] %></p>
         </div>
       </div>

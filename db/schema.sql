@@ -21,10 +21,10 @@ VALUES
 139, 'Just a simple boy from Liverpool.', 'bear.png', '1963-04-11 18:22:47.493425' ),
 (3, 'George', 'George', 'Harrison', 
 '$2a$12$NWvZ9InR4A1lvKxY5dHuX.fDwgo/hTBaZ343WUPfaPfQreZTRhPTe',
-189, 'Something in the way...', 'cat.png', '1963-05-12 17:22:47.493425' ),
+209, 'Something in the way...', 'cat.png', '1963-05-12 17:22:47.493425' ),
 (4, 'Ringo', 'Ringo', 'Starr', 
 '$2a$12$zRY6TtjDGb9Ti3OkPdZIS.G3tNWawBqRHpSato2Ly75u/fwq3ybNm',
-189, 'Friend of everybody', 'dog.png', '1963-04-09 17:22:47.493425' );
+169, 'Friend of everybody', 'dog.png', '1963-04-09 17:22:47.493425' );
 
 CREATE TABLE boards (
   id serial PRIMARY KEY,

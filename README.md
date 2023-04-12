@@ -47,7 +47,20 @@ Then, to initialize the database in your system, execute:
 ```bash
 $ createdb buzzle && psql -d buzzle < ./db/schema.sql
 ```
+
 This will also add some seed data to the database as a sample.
+
+This is the data to access with the sample users credentials:
+
+| Username | Password |
+|----------|----------|
+| John     | 123      |
+| Paul     | 123      |
+| George   | 123      |
+| Ringo    | 123      |
+
+Each of these users have created boards, posted messages on them, sent or being sent private messages, etc.
+I invite the reader to create a new user account and interact with them, or to log in with any of these accounts and see the possibilities.
 
 ## How to use the application
 
