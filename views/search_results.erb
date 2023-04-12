@@ -7,10 +7,10 @@
     <% @messages.each do |message| %>
         <a href="/boards/<%=message['board_id']%>">
         <div class="card big message <%= message['board_color']%>-border animated">
-            <h3>Board: <%= message['board_title'] %></h3>
-            <h4><%= format_time(message['posted_on']) %></h4>
+            <h4 class="search-time"><%= format_time(message['posted_on']) %></h4>
+            <h3 class="search-title">Board: <%= message['board_title'] %></h3>
             <% if current_user?(message['author_id']) %>
-              <h4>You said: </h4>
+              <h4>You posted: </h4>
             <% else %>
               <h4><%= format_username(message['author']) %>:</h4>
             <% end %>

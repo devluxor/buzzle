@@ -14,9 +14,8 @@ end
 
 <div class="board-big">
   <% @messages.each do |message| %>
-
       <div class="card big message <%= current_user?(message['sender_id']) ? 'sender' : nil %>">
-          <h4><%= format_time(message['posted_on']) %></h4>
+          <h4 class="conversation-time"><%= format_time(message['created_on']) %></h4>
           <% if current_user?(message['sender_id']) %>
             <p>You said: </p>
           <% else %>

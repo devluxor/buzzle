@@ -9,7 +9,7 @@ COUNT_HISTORY ||= <<~SQL.rstrip.freeze
   SELECT board_messages.id
   FROM board_messages
   WHERE board_messages.author_id = $1
-  ORDER BY created_on DESC
+  ORDER BY posted_on DESC
 SQL
 COUNT_SEARCH_RESULTS ||= 'SELECT id FROM board_messages WHERE content ILIKE $1'.freeze
 MESSAGES_UNREAD ||= 'SELECT id FROM private_messages WHERE read = false AND receiver_id = $1'.freeze
@@ -61,9 +61,6 @@ SELECT
   FROM boards
   LEFT JOIN users ON boards.author_id = users.id
   ORDER BY last_message_posted DESC NULLS LAST
-
-
-  
   LIMIT #{MAX_BOARDS_PER_PAGE}
   OFFSET $1
 SQL
@@ -143,7 +140,7 @@ LOAD_HISTORY ||= <<~SQL.rstrip.freeze
   FROM board_messages
   JOIN boards ON board_messages.board_id = boards.id
   WHERE board_messages.author_id = $1
-  ORDER BY created_on DESC
+  ORDER BY posted_on DESC
   LIMIT #{MAX_MESSAGES_PER_PAGE}
   OFFSET $2
 SQL

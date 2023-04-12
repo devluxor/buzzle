@@ -771,6 +771,8 @@ fieldset > legend {
   color: rgb(100, 100, 100);
 }
 
+.conversation-time,
+.search-time,
 .history-time,
 .board-author-date {
   font-size: 0.85rem;
@@ -844,6 +846,8 @@ p.greeting {
   font-size: 1.1rem;
   font-weight: 400;
 }
+
+.s
 
 /* Conversations ----------------------------------------- */
 

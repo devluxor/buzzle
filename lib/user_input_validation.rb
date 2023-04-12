@@ -3,7 +3,7 @@ require 'bcrypt'
 ONLY_NUMBERS ||= %r{\A\d+\z}
 BOARD_TITLE ||= %r{\A[\w\s\-!?'\.\,]{3,60}\z}
 FORBIDDEN_CREDENTIAL_CHARACTERS ||= %r{[^\w]}
-FORBIDDEN_NAME_CHARACTERS ||= %r{[^\w\-']}
+FORBIDDEN_NAME_CHARACTERS ||= %r{[^\w\-' ]}
 FORBIDDEN_ABOUT_ME_CHARACTERS ||= %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\"]}
 FORBIDDEN_MESSAGE_CHARACTERS ||= %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\\\/\"]}
 SEARCH_TERM ||= %r{\A[\w\s\-!?'\.\,\+\#\@\(\)\[\]\{\}]{1,120}\z}

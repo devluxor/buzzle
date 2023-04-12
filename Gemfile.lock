@@ -21,7 +21,6 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.6.0)
     rerun (0.14.0)
       listen (~> 3.0)
     ruby2_keywords (0.0.5)
@@ -47,7 +46,6 @@ DEPENDENCIES
   paint (~> 2.3.0)
   pg (~> 1.4.6)
   puma (~> 6.1.1)
-  redcarpet (~> 3.6.0)
   rerun
   sinatra (~> 3.0.5)
   sinatra-contrib (~> 3.0.5)
