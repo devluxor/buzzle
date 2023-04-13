@@ -27,7 +27,7 @@ The application was created using Visual Studio Code v1.75 on Ubuntu inside a WS
 
 the following internet browsers were used to test the application:
 
-| Explorer        | Version       | Backend         | Frontend        | Overall Assessment |
+| **Explorer**        | **Version**       | **Backend**         | **Frontend**        | **Overall Assessment** |
 |-----------------|---------------|-----------------|-----------------|--------------------|
 | Google Chrome   | 112.0.5615.50 | No issues found | No issues found |     ✅  |
 | Mozilla Firefox | 112.0         | No issues found | No issues found |     ✅  |
