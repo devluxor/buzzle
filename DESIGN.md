@@ -124,6 +124,8 @@ Expressed in plain words, this cascade-like structure in the route means: if no 
 
 ## Application organization and structure
 
+(Please, see `./MAP.txt`)
+
 After comparing different approaches and possible structures for Sinatra applications, I opted out the more complex ones, and chose a classic style, but with a pseudo-modular flavor. The classic style, the one without file subclassing, based on traditional ruby file loading, serves the purpose of the application very well and without setbacks, as I didn't need more than one Sinatra application per Ruby process. Nevertheless, encouraged by the Sinatra's flexibility and the clarity of its documentation, I decided to have a clear separation of concerns and tasks, following the 'one class per file' model, and I created a different file for each different aspect of the application: one file for the `before` filters, one file for the user validation helper methods, etc. This way, although keeping the classic Sinatra style, the application becomes more easily readable, configurable and maintainable.
 
 
@@ -157,7 +159,7 @@ Probably, the most arguable point in this approach is the inclusion of a `conver
 
 This would group the messages by conversations without the need for a `conversations` table. However, how could we uniquely identify the conversation between the two users? We could do that by using the primary key of the user that is not the current user, but then, the logic in the queries would be more complicated, and we would have to have an extra step of validation in our program. Also, in case we wanted to, for instance, include a 'user stats' kind of page, the queries to extract the data from all the different conversations between different users would be also more intricate. My point is that, after balancing out all the pros and cons, I finally opted for having a `conversations` table to represent this entity, but I am not oblivious to the possible trade-offs that could come by when the app scales, and I am open to discuss this decisions and change the design accordingly if good arguments come up.
 
-I've
+I've removed n+1 queries, pushed some aspects of the application logic down to the database, and tried to reduce the number of queries overall.
 
 In the terminal, while the app is running, the user can see every query that is being executed, along with the parameters passed to them, with a code of colors:
 

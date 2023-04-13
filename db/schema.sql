@@ -15,16 +15,16 @@ INSERT INTO users
 VALUES
 ('John', 'John', 'Lennon', 
 '$2a$12$zRY6TtjDGb9Ti3OkPdZIS.G3tNWawBqRHpSato2Ly75u/fwq3ybNm',
-189, 'Musician. From Liverpool, UK', 'snake.png', '1963-04-12 17:22:47.493425' ),
+6, 'Musician. From Liverpool, UK', 'snake.png', '1963-04-12 17:22:47.493425' ),
 ('Paul', 'Paul', 'McCartney',
 '$2a$12$gSGhIE69SyHnIeKbY1e/XeliywTluu9rhtFoNSpfOBO4kOPv2d6e6',
-139, 'Just a simple boy from Liverpool.', 'bear.png', '1963-04-11 18:22:47.493425' ),
+7, 'Just a simple boy from Liverpool.', 'bear.png', '1963-04-11 18:22:47.493425' ),
 ('George', 'George', 'Harrison', 
 '$2a$12$NWvZ9InR4A1lvKxY5dHuX.fDwgo/hTBaZ343WUPfaPfQreZTRhPTe',
-209, 'Something in the way...', 'cat.png', '1963-05-12 17:22:47.493425' ),
+5, 'Something in the way...', 'cat.png', '1963-05-12 17:22:47.493425' ),
 ('Ringo', 'Ringo', 'Starr', 
 '$2a$12$zRY6TtjDGb9Ti3OkPdZIS.G3tNWawBqRHpSato2Ly75u/fwq3ybNm',
-169, 'Friend of everybody', 'dog.png', '1963-04-09 17:22:47.493425' );
+4, 'Friend of everybody', 'dog.png', '1963-04-09 17:22:47.493425' );
 
 CREATE TABLE boards (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -57,6 +57,7 @@ VALUES
 (4, 2, '1967-05-29 17:22:47.493425', 'I think I don''t like her'),
 (2, 1, '1965-12-06 17:22:47.493425', 'What do you need, Paul?'),
 (3, 3, '1969-03-01 17:22:47.493425', 'Something simple, just the four of us'),
+(3, 4, '1969-03-01 19:22:47.493425', 'I don''t want another white cover!'),
 (1, 4, '1968-11-09 17:22:47.493425', 'Haha, he must be one of those people...'),
 (2, 2, '1967-12-31 17:22:47.493425', 'Help me if you can, I''m feeling down'),
 (1, 2, '1967-12-19 17:22:47.493425', 'Even Marylin''s there!'),

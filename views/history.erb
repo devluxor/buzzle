@@ -8,7 +8,7 @@
       <a href="/boards/<%= message['board_id'] %>">
         <div class="card big message <%= message['board_color']%>-border animated">
             <h4 class="history-time"><%= format_time(message['posted_on']) %></h4>
-            <h3 class="history-board">In <%= message['board_title'] %>:</h3>
+            <h3 class="history-board"><%= message['board_title'] %></h3>
             <p><%== format_text(message['content']) %></p>
         </div>
       </a>
