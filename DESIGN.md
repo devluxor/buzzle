@@ -34,7 +34,7 @@ The redirection will trigger another defined route, that could be illustrated by
 
 ```ruby
 get '/main_page' do
-  erb :main_page # This method will load the main page HTML layout as the HTTP response body.
+  erb :main_page # This method will load the main page HTML template as the HTTP response body.
 end
 ```
 However, many things can go wrong. What happens if the password introduced is not correct, or, even worse, contains a script injection attack? We could define the `post` route like this instead:
@@ -88,7 +88,7 @@ post '/login' do
   )
 end
 ```
-If `@input_errors` is assigned to a value (not `nil`), it will become the route's return value, via the `||` logical operator, and thus the body of the following HTTP request; but, if no errors were found (having a `nil` value), then the main code of the route will be executed. To illustrate this approach even more, here it is another example of the filter for the `POST` HTTP request to send new values for a board, and the corresponding route:
+If `@input_errors` is assigned to a value (not `nil`), it will become the route's return value, via the `||` logical operator, and thus the body of the following HTTP request; but, if no errors were found (having a `nil` value), then the main code of the route will be executed. To illustrate this approach even more, here it is another example of the filter for the `POST` HTTP request to send new values when editing a board, and the corresponding route:
 
 ```ruby
 # This is executed before the route:
@@ -101,6 +101,7 @@ before '/boards/:id/edit', request_method: :post do
   @input_errors = check_parameters('/') { validate_board_data(@board_input_data) }
 end
 ```
+
 ```ruby
 post '/boards/:id/edit' do
   @invalid_board_id ||
@@ -113,6 +114,7 @@ post '/boards/:id/edit' do
 end
 ```
 Expressed in plain words, this cascade-like structure means: if no errors were found in the board identifier, nor the user was not authorized to edit this board, nor there were errors in the new board values, the main route code can be executed. This approach makes, in my opinion, the routes much cleaner and easy to follow along, while keeping a valuable flexibility and the separation of concerns between the different validation subroutines, and the main, expected code to run within each route.
+
 
 ## The database
 
