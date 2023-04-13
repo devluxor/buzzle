@@ -31,7 +31,8 @@ helpers do
   end
 
   def restricted_access_requested?
-    request.path.match?(RESTRICTED_URLS)
+    # request.path.match?(RESTRICTED_URLS)
+    !request.path.match?(/login|new_user/)
   end
 
   def require_logged_in_user
