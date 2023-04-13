@@ -36,16 +36,15 @@
 .modal {
   position: relative;
   background: white;
-  padding: 80px 20px 20px;
   overflow: hidden;
-  width: min-content;
-  height: 300px;
+  width: max-content;
+  height: 350px;
   border-radius: 10px;
   margin: 0 auto;
   border-radius: 5px;
   border-left: 8px solid seagreen;
   justify-self: start;
-  padding: 25px 50px 25px 50px;
+  padding: 25px 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;

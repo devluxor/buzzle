@@ -54,7 +54,7 @@
 
         <div class='modal'>
           <button class='modal-toggle modal-button'>x</button>
-          <h2 class='modal-title'>Send a message to @<%= @user_info['username'].downcase %></h2>
+          <h2 class='modal-title'>To @<%= @user_info['username'].downcase %></h2>
           <div class='modal-content'>
             <form action="/send_message" method="post">
               <input type="text" name="receiver_id" value ="<%= @user_info['id'] %>" hidden>
