@@ -23,7 +23,7 @@ This is the layout for the application structure:
 │   ├── user_input_validation.rb << Auxiliary methods to validate any kind of user input, informing the user of possible errors.
 |   |
 │   └── validation_subroutines.rb << Route-specific `before` filters that control restricted access, and redirection in case of errors detected
-                                      in parameters or in the URL
+|                                      in parameters or in the URL
 |
 ├── public << From this folder all static files will be served:
 |   |

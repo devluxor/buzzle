@@ -21,11 +21,11 @@ For more information about the design decisions, SQL specifics, and more technic
 
 ## Software requirements
 
-This application has been built and ran with Ruby v3.1.2, using Sinatra v3.0.4 and the Puma server v6.1.1. PostgreSQL v12.14 was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
+This application has been built and ran with **Ruby v3.1.2**, using **Sinatra v3.0.4** and the Puma server v6.1.1. **PostgreSQL v12.14** was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
 
 The application was created using Visual Studio Code v1.75 on Ubuntu inside a WSL2 virtual machine, Windows 10.0.19044.
 
-the following internet browsers were used to test the application:
+The following internet browsers were used to test the application:
 
 | **Explorer**        | **Version**       | **Backend**         | **Frontend**        | **Overall Assessment** |
 |-----------------|---------------|-----------------|-----------------|--------------------|
@@ -36,7 +36,7 @@ the following internet browsers were used to test the application:
 
 ## How to run the application
 
-On the terminal, inside the folder on which the contents of the folder `buzzle` have been loaded, run `bundle install` to install all the Gem dependencies:
+On the terminal, inside the directory on which the contents of the folder `buzzle` have been loaded, run `bundle install` to install all the Gem dependencies:
 
 ```bash
 $ bundle install
