@@ -184,7 +184,7 @@ One aspect that I'd like to talk about is when a user deletes his or her account
 
 ```sql
 DELETE FROM boards WHERE author_id IS NULL AND created_on < now() - INTERVAL '1 DAY'
--- I enjoyed the discovery of the INTERVAL() function. It's very useful in cases like these.
+-- I enjoyed learning about the  INTERVAL() function. It's very useful in cases like these.
 ```
 
 Another feature I wanted my application to have is a way to notify the user that he or she has unread messages. This was achieved by the inclusion of an extra `read` column in the `private_messages` table, with a boolean type. `false` by default, it is updated to `true` the time the conversation that the private messages refers to is accessed. This was another reason to have a `conversations` table in the database. When the user identifier is the same as any private message's receiver identifier, with a `read` flag of `false`, a little exclamation sign is shown over the 'Conversations' icon on the left navigation bar.
