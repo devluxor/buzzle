@@ -1,7 +1,8 @@
 ## An overview of the overall functioning of the application
 
-A Sinatra application is basically a collection of 'routes' or URL _patterns_ of HTTP requests sent from the client to the server, and the definition of the corresponding HTTP response to those requests; in other words, for every request with a path defined in a route or _pattern_, there is a response, defined inside each route block.
-For example, if we want the user to see the login page, we define a route with the HTTP method used to send that request to the server, `GET`. Then, we add a pattern with the desired URL path, `/login`, and we define a block that will contain the behavior that will follow the server after a request with these characteristics. The return value of the block will determine, at least, the response body passed on to the HTTP client. In Buzzle, most of the time this will be a string containing HTML code defined in a `.erb` template, loaded by an `erb` method.
+A Sinatra application is basically a collection of 'routes' or method/URL _patterns_ of HTTP requests sent from the client to the server, and the definition of the corresponding HTTP response to those requests; in other words, for every request with a path defined in a route or _pattern_, with a specific HTTP method, there is a behavior and a response, defined inside each route block.
+
+For example, if we want the user to see the login page, we define a route with the HTTP method used to send that request to the server, `GET`. Then, we add a pattern with the desired URL path, `/login`, and we define a block that will contain the behavior that will follow the server after a request with these characteristics. The return value of the block will determine, at least, the response body passed on to the HTTP client. In Buzzle, most of the time this will be a string containing HTML code defined in a `.erb` template, loaded by an `erb` method; it can also be a redirection to other defined route.
 
 ```ruby
 get '/login' do
@@ -123,10 +124,10 @@ Expressed in plain words, this cascade-like structure in the route means: if no 
 
 ## Application organization and structure
 
-Pseudo-modular structure (Sinatra)
+After comparing different approaches and possible structures for Sinatra applications, I opted out the more complex ones, and chose a classic style, but with a pseudo-modular flavor. The classic style, the one without file subclassing, based on traditional ruby file loading, serves the purpose of the application very well and without setbacks, as I didn't need more than one Sinatra application per Ruby process. Nevertheless, encouraged by the Sinatra's flexibility and the clarity of its documentation, I decided to have a clear separation of concerns and tasks, following the 'one class per file' model, and I created a different file for each different aspect of the application: one file for the `before` filters, one file for the user validation helper methods, etc. This way, although keeping the classic Sinatra style, the application becomes more easily readable, configurable and maintainable.
 
 
-## The database
+## Database design and optimization
 
 The database is composed by five tables representing five types of entities: _users_, _boards_, _board messages_, _private messages_ and _conversations_. A user is represented by a row in the `users` table that contains all the account information; a row in the `boards` table represents a message board posted by a single user, and has all the information about that board, like when it was posted, its title and description, its color, etc.; `board_messages` contains every single message posted in any board, with all the appropriate information; one row in `private_messages` represents each message sent by a user to another user, along all its information too. The `conversations` table, on the other hand, represents _a single channel of communication between two users_, or a private conversation between a user 'a' and a user 'b'; the table contains a primary key for the conversation, identifiers for both users, and the timestamp of the last message sent by 'a' to 'b' or vice versa. Of course, every time a private message is sent, the program checks if there's already a conversation going on between sender and receiver: if there is, it updates the timestamp in the corresponding `conversations` row, and sends the message; if there is not, it creates a new conversation.
 
@@ -139,9 +140,25 @@ Relationships between entities:
 | User         | Private Message | 1:M                  |
 | Conversation | User            | M:M                  |
 
-Probably, the most arguable point in this approach is the inclusion of a `conversations` table. Why not just grouping the private messages by user 'a' and user 'b' to load all the ongoing conversations between the current user and others? For example, we could do something like
+Probably, the most arguable point in this approach is the inclusion of a `conversations` table. Why not just grouping the private messages by user 'a' and user 'b' to load all the ongoing conversations between the current user and others? For example, we could construct a query with something like:
+
+```sql
+  SELECT 
+    MAX(private_messages.created_on) AS last_message, 
+    private_messages.sender_id,
+    private_messages.receiver_id,
+    (SELECT username FROM users WHERE id = sender_id) AS sender_name,
+    (SELECT username FROM users WHERE id = receiver_id) AS receiver_name
+  FROM private_messages
+  WHERE sender_id = $1 OR receiver_id = $1
+  GROUP BY sender_id, receiver_id
+  ORDER BY last_message DESC
+```
+
+This would group the messages by conversations without the need for a `conversations` table. However, how could we uniquely identify the conversation between the two users? We could do that by using the primary key of the user that is not the current user, but then, the logic in the queries would be more complicated, and we would have to have an extra step of validation in our program. Also, in case we wanted to, for instance, include a 'user stats' kind of page, the queries to extract the data from all the different conversations between different users would be also more intricate. My point is that, after balancing out all the pros and cons, I finally opted for having a `conversations` table to represent this entity, but I am not oblivious to the possible trade-offs that could come by when the app scales, and I am open to discuss this decisions and change the design accordingly if good arguments come up.
+
+I've
 
 ## Other design choices
 
-
-
+All the user data can be updated, even the password, and the account can be deleted by the user. Every board posted by a user can be accessed by everyone, but can only be edited and deleted by its author, and the same with board messages: anyone can post anywhere, but only the message author can edit or delete the message. Single private messages can't be deleted individually, but the whole conversation can be deleted by any of its participants; I thought this made more sense to the application, and it is in concordance with other common applications. Naturally, before every destructive action with an effect in the database, the user is alerted by a confirmation message: if the users confirms, the action will take place. Also, every method in Ruby with a permanent, altering effect is marked with an exclamation sign `!` at the end of its name (for example, the `DatabaseInteraction#add_board!` method).

@@ -42,7 +42,6 @@ end
 
 def find_errors(*list_of_checks)
   checks_results = list_of_checks.each_with_object([]) { |check, results| results << check }
-  
   (checks_results.find { |error| error }) ? checks_results.compact[0].to_sym : :valid
 end
 
