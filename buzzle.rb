@@ -38,6 +38,7 @@ get '/' do
 end
 
 get '/login' do
+  status UNAUTHORIZED if session.delete(:unauthorized_access)
   erb :login, layout: :pre_access
 end
 

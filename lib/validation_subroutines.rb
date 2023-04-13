@@ -201,6 +201,10 @@ before '/search',  request_method: :post do
   load_pagination(:search_results)
 end
 
+before '/logout', request_method: :get do
+  access_control_subroutine
+end
+
 before '/delete_account', request_method: :post do
   access_control_subroutine
 end

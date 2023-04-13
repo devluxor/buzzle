@@ -1,6 +1,7 @@
 require 'time'
 
-RESTRICTED_URLS ||= %r{\A\/\z|delete|profile|message|board|history|settings|search|conversation|logout}
+# RESTRICTED_URLS ||= %r{\A\/\z|delete|profile|message|board|history|settings|search|conversation|logout}
+UNRESTRICTED_URLS ||= %r{login|new_user}
 PORTRAITS_PATH ||= './public/images/profile/*.png'.freeze
 BOARD_COLORS ||= %w{ orange red blue green black yellow purple }.freeze
 # error messages in #to_error_message, lines 107-130.
@@ -31,16 +32,15 @@ helpers do
   end
 
   def restricted_access_requested?
-    # request.path.match?(RESTRICTED_URLS)
-    !request.path.match?(/login|new_user/)
+    !request.path.match?(UNRESTRICTED_URLS)
   end
 
   def require_logged_in_user
     return if user_logged_in?
 
+    session[:unauthorized_access] = true
     session[:last_requested] = request.path
     flash_message(:need_login) unless request.path.match?(%r{\A/\z|/login})
-    status UNAUTHORIZED
     redirect '/login'
   end
 

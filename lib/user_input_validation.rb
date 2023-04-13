@@ -35,7 +35,7 @@ def valid?(validation_message)
 end
 
 def define_status_code(response)
-  response.to_s.match?(%r{invalid|incorrect|taken}) ? UNPROCESSABLE_CONTENT : BAD_REQUEST
+  response.to_s.match?(%r{invalid|empty}) ? BAD_REQUEST : UNPROCESSABLE_CONTENT
 end
 
 # Input validation --------------------------------------------------------------------------------
