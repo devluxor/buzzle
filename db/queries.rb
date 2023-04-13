@@ -100,7 +100,6 @@ LOAD_PRIVATE_MESSAGES ||= <<~SQL.rstrip.freeze
     (SELECT username FROM users WHERE id = receiver_id) AS receiver_username, 
     private_messages.content 
   FROM private_messages
-  JOIN users ON private_messages.sender_id = users.id
   JOIN conversations ON private_messages.conversation_id = conversations.id
   WHERE conversation_id = $1
   ORDER BY private_messages.created_on DESC
