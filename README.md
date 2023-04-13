@@ -16,7 +16,7 @@ Every message in the history of messages and in the search results pages can be 
 
 The application is protected against bad user input, including possible injection attacks, with a double validation system in both the backend and the fronted. The backend input validation system is based on a series of route-specific filters, and methods that specifically inform the user what went wrong, in every possible case, via a flash message that will disappear after a few seconds. This validation system does not only detect errors in parameters sent via forms, but also in every identifier in each resource URL, including those parameters belonging to the pagination system. On top of the backend validation, each form includes an HTML-based validation system, to add an extra layer of security. The passwords are never stored as they are, but are encrypted before inserting them in the database. SQL queries have been optimized up to a certain point (n+1 queries were substituted by single queries, etc.)
 
-For more information about the design decisions, SQL specifics, and more technical details, please, don't hesitate on reading the file `DESIGN.md` in this same folder. For a general layout of the application, please see `MAP.txt`
+For more information about the design decisions, SQL specifics, and more technical details, please, don't hesitate to read the file `DESIGN.md` in this same folder. For a general layout of the application, please see `MAP.txt`
 
 ## Software requirements
 
