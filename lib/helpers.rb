@@ -1,6 +1,5 @@
 require 'time'
 
-# RESTRICTED_URLS ||= %r{\A\/\z|delete|profile|message|board|history|settings|search|conversation|logout}
 UNRESTRICTED_URLS ||= %r{login|new_user}
 PORTRAITS_PATH ||= './public/images/profile/*.png'.freeze
 BOARD_COLORS ||= %w{ orange red blue green black yellow purple }.freeze
