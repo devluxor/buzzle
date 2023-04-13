@@ -1,22 +1,22 @@
 require 'bcrypt'
 
-ONLY_NUMBERS ||= %r{\A\d+\z}
-FORBIDDEN_CREDENTIAL_CHARACTERS ||= %r{[^\w]}
-FORBIDDEN_NAME_CHARACTERS ||= %r{[^\w\-' ]}
-FORBIDDEN_ABOUT_ME_CHARACTERS ||= %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\"]}
-FORBIDDEN_MESSAGE_CHARACTERS ||= %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\\\/\"]}
-SEARCH_TERM ||= %r{\A[\w\s\-!?'\.\,\+\#\@\(\)\[\]\{\}]{1,100}\z}
+ONLY_NUMBERS = %r{\A\d+\z}
+FORBIDDEN_CREDENTIAL_CHARACTERS = %r{[^\w]}
+FORBIDDEN_NAME_CHARACTERS = %r{[^\w\-' ]}
+FORBIDDEN_ABOUT_ME_CHARACTERS = %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\"]}
+FORBIDDEN_MESSAGE_CHARACTERS = %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\\\/\"]}
+SEARCH_TERM = %r{\A[\w\s\-!?'\.\,\+\#\@\(\)\[\]\{\}]{1,100}\z}
 
-MAX_CREDENTIAL_SIZE ||= 30
-MAX_NAME_SIZE ||= 40
-MAX_ABOUT_ME_SIZE ||= 250
-MAX_BOARD_TITLE ||= 100
-MAX_BOARD_DESCRIPTION ||= 100
-MAX_MESSAGE ||= 1000
-MIN_GENERAL_STRING ||= 3
-MIN_MESSAGE ||= 1
+MAX_CREDENTIAL_SIZE = 30
+MAX_NAME_SIZE = 40
+MAX_ABOUT_ME_SIZE = 250
+MAX_BOARD_TITLE = 100
+MAX_BOARD_DESCRIPTION = 100
+MAX_MESSAGE = 1000
+MIN_GENERAL_STRING = 3
+MIN_MESSAGE = 1
 
-MAX_SQL_INTEGER ||= 2_147_483_647
+MAX_SQL_INTEGER = 2_147_483_647
 
 # This method handles errors in validation; reloads/redirects in case any
 # input error is found, informing the user via a flash message, returns `nil` if no errors found

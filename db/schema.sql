@@ -18,7 +18,7 @@ VALUES
 6, 'Musician. From Liverpool, UK', 'snake.png', '1963-04-12 17:22:47.493425' ),
 ('Paul', 'Paul', 'McCartney',
 '$2a$12$gSGhIE69SyHnIeKbY1e/XeliywTluu9rhtFoNSpfOBO4kOPv2d6e6',
-7, 'Just a simple boy from Liverpool.', 'bear.png', '1963-04-11 18:22:47.493425' ),
+7, 'Just a simple boy from Liverpool.', 'koala.png', '1963-04-11 18:22:47.493425' ),
 ('George', 'George', 'Harrison', 
 '$2a$12$NWvZ9InR4A1lvKxY5dHuX.fDwgo/hTBaZ343WUPfaPfQreZTRhPTe',
 5, 'Something in the way...', 'cat.png', '1963-05-12 17:22:47.493425' ),

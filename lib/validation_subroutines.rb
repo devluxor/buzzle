@@ -70,7 +70,7 @@ end
 before '/boards/:id', request_method: :get do
   access_control_subroutine
   @id = params[:id]
-  @input_errors = check_parameters('/') { validate_board_identifier(@id) }
+  @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
   check_pagination("/boards/#{@id}", :board_messages)
   load_pagination(:board_messages)
 end
@@ -86,7 +86,7 @@ end
 before '/boards/:id/edit', request_method: :get do
   access_control_subroutine
   @id = params[:id]
-  @invalid_board_id = check_parameters('/') { validate_board_identifier(@id) }
+  @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
   @unauthorized_user = check_parameters("/boards/#{@id}") { validate_board_rights(@id) }
 end
 
@@ -94,9 +94,9 @@ before '/boards/:id/edit', request_method: :post do
   access_control_subroutine
   @id = params[:id]
   capture_input_board_data
-  @invalid_board_id = check_parameters('/') { validate_board_identifier(@id) }
-  @unauthorized_user = check_parameters('/') { validate_board_rights(@id) }
-  @input_errors = check_parameters('/') { validate_board_data(@board_input_data) }
+  @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
+  @unauthorized_user = check_parameters("/boards/#{@id}") { validate_board_rights(@id) }
+  @input_errors = check_parameters("/boards/#{@id}/edit") { validate_board_data(@board_input_data) }
 end
 
 before '/boards/:board_id/edit/:message_id', request_method: :get do
@@ -116,7 +116,7 @@ before '/boards/:board_id/edit/:message_id', request_method: :post do
   @invalid_board_id = check_parameters('/') { validate_board_identifier(@board_id) }
   @invalid_message_id = check_parameters("/boards/#{@board_id}") { validate_board_message_id(@board_id, @message_id)}
   @unauthorized_user = check_parameters('/') { validate_board_message_rights(@message_id) }
-  @input_errors = check_parameters("/boards/#{@board_id}") { validate_message(@new_message) }
+  @input_errors = check_parameters("/boards/#{@board_id}/edit/#{@message_id}") { validate_message(@new_message) }
 end
 
 before '/boards/:board_id/edit/:message_id/delete', request_method: :post do

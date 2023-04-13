@@ -4,12 +4,12 @@ require 'paint'
 
 require_relative 'queries'
 
-MAX_INTEGER ||= 2_147_483_647
+MAX_INTEGER = 2_147_483_647
 
 # Points per action: (see lines 271-273)
-BOARD_MESSAGE ||= 1
-PRIVATE_MESSAGE ||= 5
-NEW_BOARD ||= 10
+BOARD_MESSAGE = 1
+PRIVATE_MESSAGE = 5
+NEW_BOARD = 10
 
 class DatabaseInteraction 
   def initialize(logger)

@@ -9,12 +9,12 @@ require_relative 'lib/validation_subroutines'
 
 # Status codes and configuration:
 
-BAD_REQUEST ||= 400
-UNAUTHORIZED ||= 401
-NOT_FOUND ||= 404
-UNPROCESSABLE_CONTENT ||= 422
+BAD_REQUEST = 400
+UNAUTHORIZED = 401
+NOT_FOUND = 404
+UNPROCESSABLE_CONTENT = 422
 
-SESSION_SECRET ||= '89ff09c339ac1df5cb1f9e1959ef913f1828c1048f777ef05f0aec54de0f1453'.freeze
+SESSION_SECRET = '89ff09c339ac1df5cb1f9e1959ef913f1828c1048f777ef05f0aec54de0f1453'.freeze
 
 configure do
   set :erb, escape_html: true
@@ -88,7 +88,7 @@ post '/boards/:id' do
 end
 
 get '/boards/:id/edit' do
-  @invalid_board_id || (
+  @invalid_id || (
     @unauthorized_user ||
       @board_info = @storage.board_info(@id)
       erb :edit_board
@@ -96,7 +96,7 @@ get '/boards/:id/edit' do
 end
 
 post '/boards/:id/edit' do
-  @invalid_board_id ||
+  @invalid_id ||
     @unauthorized_user || 
       @input_errors || (
         @storage.edit_board!(@id, @board_input_data)
@@ -195,16 +195,15 @@ post '/conversations/:id/delete' do
 end
 
 get '/history' do
-    @invalid_page || (
-      @messages = @storage.load_history(session[:user_id], @current_page)
-      erb :history
-    )
+  @invalid_page || (
+    @messages = @storage.load_history(session[:user_id], @current_page)
+    erb :history
+  )
 end
 
 get '/settings' do
-    @user_info = @storage.user_info(session[:user_id])
-    erb :settings
-
+  @user_info = @storage.user_info(session[:user_id])
+  erb :settings
 end
 
 post '/settings' do
@@ -234,7 +233,7 @@ post '/delete_account' do
   @storage.delete_user!(session[:user_id])
   log_out_user
   flash_message(:valid_delete_user)
-  redirect '/'
+  redirect '/login'
 end
 
 get '/logout' do
