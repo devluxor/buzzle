@@ -1,6 +1,7 @@
 This is the layout for the application structure:
 
 .
+├── .ruby-version 
 ├── Gemfile 
 ├── Gemfile.lock 
 ├── MAP.MD 
