@@ -237,10 +237,6 @@ def validate_private_message(data)
   )
 end
 
-def validate_page_number(page_number, content_type)
-  valid_page_number?(page_number, content_type) ? :valid : :invalid_page_number
-end
-
 def validate_board_identifier(id)
   find_errors(
     valid_numeric_identifier?(id) ? nil : :invalid_board_identifier,
@@ -268,12 +264,15 @@ def valid_new_username?(username)
   @storage.valid_new_username?(session[:user_id], username)
 end
 
+def validate_page_number(page_number, content_type)
+  valid_page_number?(page_number, content_type) ? :valid : :invalid_page_number
+end
+
 def valid_page_number?(page_number, content_type)
   valid_numeric_identifier?(page_number) &&
     !more_than_necessary?(page_number.to_i, content_type)
 end
 
-# See ./helpers.rb, #helpers
 def more_than_necessary?(page_number, content_type)
   page_number > calculate_pages_needed(content_type)
 end

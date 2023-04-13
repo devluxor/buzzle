@@ -58,7 +58,7 @@ This will also add some seed data to the database as a sample; these are the sam
 | Ringo    | 123      |
 
 These sample users have created boards, posted messages on them, sent or being sent private messages, etc.
-I encourage the reader to create a new user account and interact with them, or to log in with any of these accounts's credentials and explore the possibilities of the application.
+I encourage the reader to create a new user account and interact with them, or to log in with any of these accounts' credentials and explore the possibilities of the application.
 
 To start the app, execute the following command on the terminal, inside the main `buzzle/` directory:
 
@@ -79,7 +79,7 @@ Finally, to access the app, use the default URL `http://localhost:4567/` in your
 
 The app has a few easily configurable options:
 
-- To change the pagination settings, for example, when using multiple monitors or ultrawide devices, you can alter the values assigned to the `MAX_BOARDS_PER_PAGE`, and `MAX_MESSAGES_PER_PAGE` constants in `./db/queries.rb`. Changing this values dynamically is a possibility that will come with the proper Javascript knowledge in the future.
+- To change the pagination settings, for example, when using multiple monitors or ultrawide devices, you can alter the values assigned to the `MAX_BOARDS_PER_PAGE`, and `MAX_MESSAGES_PER_PAGE` constants in `./db/queries.rb`. Changing this values dynamically is a possibility that will come with the proper JavaScript knowledge in the future.
 
 - To change the points each activity adds to the users' score, alter the values assigned to the `BOARD_MESSAGE`, `PRIVATE_MESSAGE`, and `NEW_BOARD` constants in `./db/database_interaction.rb`.
 
