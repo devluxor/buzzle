@@ -38,7 +38,7 @@ get '/main_page' do
   erb :main_page # This method will load the main page HTML template as the HTTP response body.
 end
 ```
-However, many things can go wrong. What happens if the password introduced is not correct, or, even worse, contains a script injection attack? We could define the `post` route like this instead:
+However, many things can go wrong. What happens if the password introduced is not correct, or, even worse, contains a script injection attack? We could define the `post '/login'` route like this instead:
 
 ```ruby
 post '/login' do
@@ -71,8 +71,8 @@ end
 Each time a `POST` request with a path of `/login` is sent to the server, this code is executed, before the route defined in the main app file `buzzle.rb` is triggered: 
 
 1. `access_control_subroutines` makes sure the connection with the database is initialized by assigning a `DatabaseInteraction` object to the `@storage` instance variable; 
-2. `capture_input_user_data` captures all the values sent via the HTML form in a single hash to which the `@user_input_data` variable is assigned to. 
-3. If there is a bad input of any kind, a symbol representing the specific error (incorrect password, forbidden symbols, etc.) will be returned from the block associated to the `check_parameter` method. Depending on the type of error, the appropiate HTML/erb content will be assigned to an instance variable that will be used as the response body in the route defined in the main app file `buzzle.rb`, while displaying a flash error message. If no input errors are found by `check_parameter`, no values will be assigned to the error-capturing instance variable, `@input_error`. The main advantage of defining a custom `check_parameter` method is that, analyzing the return value of the code block provided, we can use it to validate any input in any other filter, just adapting what method we invoke inside each block. For example, this is the filter for the `/new_user` `POST` request:
+2. `capture_input_user_data` captures all the values sent via the HTML form in a single hash to which the `@user_input_data` variable is assigned to. This hash is passed to the specific validation method inside the `check_parameters` block, here, the `validate_login_credentials` method 
+3. If there is a bad input of any kind, a symbol representing the specific error (incorrect password, forbidden characters, etc.) will be returned from the block, and the `check_parameter` method will process the error to generate a response, if any: depending on the type of error, the appropiate HTML/erb content will be assigned to an instance variable that will be used as the response body in the route defined in the main app file `buzzle.rb`, while displaying a flash error message. If no input errors are found by `check_parameter`, no values will be assigned to the error-capturing instance variable, `@input_error`. The main advantage of defining a custom `check_parameter` method is that, analyzing the return value of the code block provided, we can use it to validate any input in any other filter, just using a different method to invoke inside the block. For example, this is the filter for the `/new_user` `POST` request:
 
 ```ruby
 before '/new_user', request_method: :post do
@@ -158,6 +158,16 @@ Probably, the most arguable point in this approach is the inclusion of a `conver
 This would group the messages by conversations without the need for a `conversations` table. However, how could we uniquely identify the conversation between the two users? We could do that by using the primary key of the user that is not the current user, but then, the logic in the queries would be more complicated, and we would have to have an extra step of validation in our program. Also, in case we wanted to, for instance, include a 'user stats' kind of page, the queries to extract the data from all the different conversations between different users would be also more intricate. My point is that, after balancing out all the pros and cons, I finally opted for having a `conversations` table to represent this entity, but I am not oblivious to the possible trade-offs that could come by when the app scales, and I am open to discuss this decisions and change the design accordingly if good arguments come up.
 
 I've
+
+In the terminal, while the app is running, the user can see every query that is being executed, along with the parameters passed to them, with a code of colors:
+
+| Statement  | Color   |
+|------------|---------|
+| `SELECT`   | Green   |
+| `UPDATE`   | Yellow  |
+| `INSERT`   | Blue    |
+| `DELETE`   | Red     |
+| Parameters | Magenta |
 
 ## Other design choices
 

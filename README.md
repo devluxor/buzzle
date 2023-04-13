@@ -6,10 +6,9 @@ Buzzle is a color-based, easy-to-use message board web application that also pro
 
 # Features
 
-This application allows the users to create, edit and delete message boards, on which every user with an account can read and post messages, customize his/her own profile, read other's profiles, send private messages to each other, search for terms in every public message posted, access to a history of every message posted, update the password, and delete his/her account. 
+This application allows the users to create, edit and delete message boards, on which every user with an account can read and post messages, customize his/her own profile, read other's profiles, send private messages to each other, search for terms in every public message posted, access to a history of every message posted by the current user, update the password, and delete his/her account. 
 
-Buzzle also includes a live feed with the last messages posted, and another with the users with more activity on the application thanks to a score system; there is also a notification system that alerts the user when there are unread private messages. In case the user forgets to delete his/her boards before he or she deletes the account, the application will delete automatically thet boards that belong to that deleted account after 24 hours, so other users have the time to read the message posted on that board.
-Every page that has boards or messages, private or public, includes a pagination system.
+Buzzle also includes a live feed with the last messages posted, and another with the users with more activity on the application thanks to a score system; there is also a notification system that alerts the user when there are unread private messages. In case the user forgets to delete his/her boards before he or she deletes the account, the application will delete automatically thet boards that belong to that deleted account after 24 hours, so other users have the time to read the message posted on that board. Every page that has boards or messages, private or public, includes a pagination system.
 
 When the user reads a message posted by another user, the username can be clicked to access directly to the user's profile; each profile includes a button to start a private conversation with that user. The user can choose, and later change, a profile picture among a pre-defined list based on the `.png` files present in `./public/images/profile`; in case more files are added later, the application will dynamically update the list of pictures available. 
 
@@ -21,7 +20,7 @@ For more information about the design decisions, SQL specifics, and more technic
 
 ## Software requirements
 
-This application has been built and ran with **Ruby v3.1.2**, using **Sinatra v3.0.4** and the Puma server v6.1.1. **PostgreSQL v12.14** was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
+This application has been built and run with **Ruby v3.1.2**, using **Sinatra v3.0.4** along the Puma server v6.1.1. **PostgreSQL v12.14** was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
 
 The application was created using Visual Studio Code v1.75 on Ubuntu inside a WSL2 virtual machine, Windows 10.0.19044.
 
@@ -58,9 +57,9 @@ This will also add some seed data to the database as a sample; these are the sam
 | Ringo    | 123      |
 
 These sample users have created boards, posted messages on them, sent or being sent private messages, etc.
-I encourage the reader to create a new user account and interact with them, or to log in with any of these accounts and explore the possibilities of the application.
+I encourage the reader to create a new user account and interact with them, or to log in with any of these accounts's credentials and explore the possibilities of the application.
 
-To start the server running the app, execute the following command on the terminal, inside the main `buzzle/` directory:
+To start the the app, execute the following command on the terminal, inside the main `buzzle/` directory:
 
 ```bash
 $ ruby buzzle.rb
@@ -72,18 +71,18 @@ As an option, in order to safely load the correct version of certain application
 $ bundle exec ruby buzzle.rb
 ```
 
-Finally, to access the app, use the default URL `http://127.0.0.1:4567/` in your browser of choice.
+Finally, to access the app, use the default URL `http://localhost:4567/` in your browser of choice.
 
 
 ## Configuration
 
-The app has a couple of easily configurable options:
+The app has a few easily configurable options:
 
 - To change the pagination settings, for example, when using multiple monitors or ultrawide devices, you can alter the values assigned to the `MAX_BOARDS_PER_PAGE`, and `MAX_MESSAGES_PER_PAGE` constants in `./db/queries.rb`. Changing this values dynamically is a possibility that will come with the proper Javascript knowledge in the future.
 
 - To change the points each activity adds to the users' score, alter the values assigned to the `BOARD_MESSAGE`, `PRIVATE_MESSAGE`, and `NEW_BOARD` constants in `./db/database_interaction.rb`.
 
-- To add more custom profile portraits, the user will only have to add the `.png` file to the `./public/images/profile` folder; the application will update the available options automatically.
+- To add more custom profile portraits, the user will only have to add a `.png` file to the `./public/images/profile` folder; the application will update the available options automatically.
 
 
 
