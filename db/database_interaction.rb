@@ -11,7 +11,7 @@ BOARD_MESSAGE = 1
 PRIVATE_MESSAGE = 5
 NEW_BOARD = 10
 
-class DatabaseInteraction 
+class DatabaseInteraction
   def initialize(logger)
     @db = PG.connect(dbname: 'buzzle')
     @logger = logger
@@ -66,12 +66,12 @@ class DatabaseInteraction
   def add_new_user!(user_data)
     encrypted_password = BCrypt::Password.create(user_data[:password])
     query(
-      ADD_NEW_USER, 
-      user_data[:username], 
-      user_data[:first_name], 
-      user_data[:last_name], 
-      encrypted_password, 
-      user_data[:about_me], 
+      ADD_NEW_USER,
+      user_data[:username],
+      user_data[:first_name],
+      user_data[:last_name],
+      encrypted_password,
+      user_data[:about_me],
       user_data[:portrait]
     )
   end
@@ -89,9 +89,9 @@ class DatabaseInteraction
 
   def add_new_board!(board_data, author_id)
     query(
-      ADD_NEW_BOARD, 
-      board_data[:title], 
-      board_data[:description], 
+      ADD_NEW_BOARD,
+      board_data[:title],
+      board_data[:description],
       author_id,
       board_data[:color]
     )
@@ -126,8 +126,8 @@ class DatabaseInteraction
   def edit_board!(id, board_data)
     query(
       EDIT_BOARD,
-      board_data[:title], 
-      board_data[:description], 
+      board_data[:title],
+      board_data[:description],
       board_data[:color],
       id
     )
@@ -147,7 +147,7 @@ class DatabaseInteraction
     else
       update_conversation!(sender_id, receiver_id)
     end
-    
+
     query(SEND_PRIVATE_MESSAGE, message, sender_id, receiver_id)
     add_score!(PRIVATE_MESSAGE, sender_id)
   end
@@ -182,11 +182,11 @@ class DatabaseInteraction
 
   def update_profile_data!(user_id, user_data)
     query(
-      UPDATE_PROFILE_DATA, 
+      UPDATE_PROFILE_DATA,
       user_id,
-      user_data[:username], 
-      user_data[:first_name], 
-      user_data[:last_name], 
+      user_data[:username],
+      user_data[:first_name],
+      user_data[:last_name],
       user_data[:about_me],
       user_data[:portrait]
     )
@@ -207,7 +207,7 @@ class DatabaseInteraction
 
   def search_board_messages(term, page_number)
     query(
-      SEARCH_MESSAGES, 
+      SEARCH_MESSAGES,
       format_search_term(term),
       small_offset(page_number)
     )
@@ -231,7 +231,7 @@ class DatabaseInteraction
       :yellow
     when 'INSERT'
       :blue
-    else 
+    else
       :red
     end
   end
