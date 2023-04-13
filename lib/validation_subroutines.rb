@@ -4,21 +4,12 @@ set(:request_method) do |method|
   condition { request.request_method == method }
 end
 
-# Request-specific validation subroutines:
+# Request-specific validation subroutines: (see ../DESIGN.md)
 
 ## Each route:
 # Checks if the user is logged in
 # Checks for errors in identifiers provided, if any
 # Checks for errors in user input via forms or query strings, if any
-
-## If there is a bad input of any kind, a symbol representing the specific error
-## will be returned from the block associated to each check_parameter call.
-## Depending on the type of error, the appropiate HTML/erb content will be assigned to an
-## instance variable that will be used as the response body in the route (see ../buzzle.rb),
-## while displaying a flash error message.
-## If no input errors are found by these subroutines,
-## no values will be assigned to the error-capturing instance variables,
-## and the main code in the route will be executed.
 
 # Pre-login:
 

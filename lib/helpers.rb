@@ -3,6 +3,7 @@ require 'time'
 UNRESTRICTED_URLS = /login|new_user/
 PORTRAITS_PATH = './public/images/profile/*.png'.freeze
 BOARD_COLORS = %w[orange red blue green black yellow purple].freeze
+
 # error messages in #to_error_message, lines 107-130.
 SUCCESS_MESSAGES = {
   login: 'Welcome again!',
@@ -17,6 +18,7 @@ SUCCESS_MESSAGES = {
   update_user: 'Your data has been updated successfully!',
   delete_user: 'Your account was deleted successfully'
 }.freeze
+
 MAX_TITLE_SIZE_LAST_MESSAGES = 40
 MAX_CARD_LAST_MESSAGE_SIZE = 100
 
