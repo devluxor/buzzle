@@ -1,11 +1,11 @@
 require 'bcrypt'
 
-ONLY_NUMBERS = %r{\A\d+\z}
-FORBIDDEN_CREDENTIAL_CHARACTERS = %r{[^\w]}
-FORBIDDEN_NAME_CHARACTERS = %r{[^\w\-' ]}
-FORBIDDEN_ABOUT_ME_CHARACTERS = %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\"]}
-FORBIDDEN_MESSAGE_CHARACTERS = %r{[^\w\s\-!?'\;\.\,\+\=\(\)\#\%\\\/\"]}
-SEARCH_TERM = %r{\A[\w\s\-!?'\.\,\+\#\@\(\)\[\]\{\}]{1,100}\z}
+ONLY_NUMBERS = /\A\d+\z/
+FORBIDDEN_CREDENTIAL_CHARACTERS = /[^\w]/
+FORBIDDEN_NAME_CHARACTERS = /[^\w\-' ]/
+FORBIDDEN_ABOUT_ME_CHARACTERS = /[^\w\s\-!?';.,+=()\#%"]/
+FORBIDDEN_MESSAGE_CHARACTERS = %r{[^\w\s\-!?';.,+=()\#%\\/"]}
+SEARCH_TERM = /\A[\w\s\-!?'.,+\#@()\[\]{}]{1,100}\z/
 
 MAX_CREDENTIAL_SIZE = 30
 MAX_NAME_SIZE = 40
@@ -31,18 +31,18 @@ def check_parameters(error_response)
 end
 
 def valid?(validation_message)
-  validation_message.match?(%r{\Avalid})
+  validation_message.match?(/\Avalid/)
 end
 
 def define_status_code(response)
-  response.to_s.match?(%r{invalid|empty}) ? BAD_REQUEST : UNPROCESSABLE_CONTENT
+  response.to_s.match?(/invalid|empty/) ? BAD_REQUEST : UNPROCESSABLE_CONTENT
 end
 
 # Input validation --------------------------------------------------------------------------------
 
 def find_errors(*list_of_checks)
   checks_results = list_of_checks.each_with_object([]) { |check, results| results << check }
-  (checks_results.find { |error| error }) ? checks_results.compact[0].to_sym : :valid
+  checks_results.find { |error| error } ? checks_results.compact[0].to_sym : :valid
 end
 
 def validate_new_user_data(data)
@@ -59,7 +59,7 @@ end
 # Validates username and password
 def check_credential(data, type = :username, new_user: false, update: false)
   credential = data[type]
-  error_found = 
+  error_found =
     if credential.nil?
       "invalid_#{type}"
     elsif credential.match? FORBIDDEN_CREDENTIAL_CHARACTERS
@@ -72,8 +72,8 @@ def check_credential(data, type = :username, new_user: false, update: false)
       "short_#{type}"
     elsif new_user && type == :password && credential != data[:password_confirmation]
       :unmatched_passwords
-    elsif (new_user && type == :username && user_exists?(credential, username: true)) || 
-            (update && !valid_new_username?(credential))
+    elsif (new_user && type == :username && user_exists?(credential, username: true)) ||
+          (update && !valid_new_username?(credential))
       :taken_username
     elsif !update && !new_user && type == :username && !user_exists?(credential, username: true)
       :inexistent_user
@@ -89,14 +89,14 @@ def check_name(data, type = :first_name)
   error_found =
     if (name.nil? && type != :last_name) || (name && type != :last_name && name.empty?)
       "invalid_#{type}"
-    elsif name && name.match?(FORBIDDEN_NAME_CHARACTERS)
+    elsif name&.match?(FORBIDDEN_NAME_CHARACTERS)
       "forbidden_#{type}"
     elsif name && name.size > MAX_NAME_SIZE
       "long_#{type}"
     elsif name && name.size < MIN_MESSAGE
       "short_#{type}"
     end
-  
+
   @user_input_data.delete(type) if error_found
   error_found
 end
@@ -104,7 +104,8 @@ end
 def check_about_me(data)
   about_me = data[:about_me]
   return if about_me.nil?
-  error_found = 
+
+  error_found =
     if about_me.match? FORBIDDEN_ABOUT_ME_CHARACTERS
       :forbidden_about_me
     elsif about_me.size > MAX_ABOUT_ME_SIZE
@@ -120,7 +121,6 @@ end
 def check_portrait(data)
   return :invalid_portrait unless load_portraits.include?(data[:portrait])
 end
-
 
 def validate_login_credentials(data)
   find_errors(
@@ -177,7 +177,7 @@ def check_password_update(data)
   new_password = data[:new_password]
   new_password_confirmation = data[:new_password_confirmation]
 
-  if [old_password, new_password, new_password_confirmation].any? { |input| input.nil? }
+  if [old_password, new_password, new_password_confirmation].any?(&:nil?)
     :invalid_password_input
   elsif !correct_password?(session, old_password)
     :incorrect_old_password
@@ -202,9 +202,9 @@ def validate_conversation(conversation_id)
 end
 
 def valid_numeric_identifier?(id)
-  id.match?(ONLY_NUMBERS) && 
-    id.to_i.positive? && 
-      (id.to_i < MAX_SQL_INTEGER)
+  id.match?(ONLY_NUMBERS) &&
+    id.to_i.positive? &&
+    (id.to_i < MAX_SQL_INTEGER)
 end
 
 def check_user_authorization(id)
@@ -212,7 +212,7 @@ def check_user_authorization(id)
 
   conversation = @storage.conversation_info(id)
   current_user = session[:user_id]
-  if conversation.nil? 
+  if conversation.nil?
     :inexistent_conversation
   elsif (conversation['user_a_id'] != current_user) && (conversation['user_b_id'] != current_user)
     :unauthorized_user
@@ -252,11 +252,11 @@ def board_exists?(board_id)
 end
 
 def validate_board_rights(board_id)
-  (@storage.board_info(board_id)&.[]('author_id') == session[:user_id]) ? :valid : :unauthorized_user
+  @storage.board_info(board_id)&.[]('author_id') == session[:user_id] ? :valid : :unauthorized_user
 end
 
 def validate_board_message_rights(message_id)
-  (@storage.board_message_info(message_id)&.[]('author_id') == session[:user_id]) ? :valid : :unauthorized_user
+  @storage.board_message_info(message_id)&.[]('author_id') == session[:user_id] ? :valid : :unauthorized_user
 end
 
 def validate_user_profile_rights(id)
@@ -278,7 +278,7 @@ def more_than_necessary?(page_number, content_type)
 end
 
 def correct_password?(data, old_password_to_update = nil)
-  password_input = old_password_to_update ? old_password_to_update : data[:password]
+  password_input = old_password_to_update || data[:password]
   user_info = @storage.user_info(data[:username], username: true) || return
 
   BCrypt::Password.new(user_info&.[]('password')) == password_input
@@ -286,11 +286,11 @@ end
 
 def check_board_info(data, type: :title)
   info = data[type]
-  
-  error_found = 
+
+  error_found =
     if (type == :title && info.nil?) || (type == :title && info.empty?)
       :invalid_title
-    elsif type == :title && info.match?(%r{\A[^\w\s\-!?'\.\,]\z})
+    elsif type == :title && info.match?(/\A[^\w\s\-!?'.,]\z/)
       "forbidden_#{type}"
     elsif type == :title && info.size > MAX_BOARD_TITLE
       :long_title
@@ -301,7 +301,7 @@ def check_board_info(data, type: :title)
     elsif info && type != :title && info.size < MIN_GENERAL_STRING
       :short_description
     end
-  
+
   @board_input_data.delete(type) if error_found
   error_found
 end
@@ -311,7 +311,7 @@ def check_board_color(data)
 end
 
 def user_exists?(identifier, username: false)
-  @storage.user_info(identifier, username: username)
+  @storage.user_info(identifier, username:)
 end
 
 def check_pagination(error_response, content_type)
@@ -328,4 +328,3 @@ def valid_board_message_id?(board_id, message_id)
   valid_numeric_identifier?(message_id) &&
     @storage.board_message_info(message_id)&.[]('board_id') == board_id
 end
-

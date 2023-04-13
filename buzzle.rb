@@ -71,7 +71,7 @@ post '/new_board' do
 end
 
 get '/boards/:id' do
-  @invalid_id || 
+  @invalid_id ||
     @invalid_page || (
       @messages = @storage.load_board_messages(@id, @current_page)
       load_board_data_from(@messages)
@@ -80,7 +80,7 @@ get '/boards/:id' do
 end
 
 post '/boards/:id' do
-  @invalid_id || 
+  @invalid_id ||
     @input_errors || (
       @storage.add_board_message!(@message, session[:user_id], @id)
       redirect "/boards/#{@id}"
@@ -97,7 +97,7 @@ end
 
 post '/boards/:id/edit' do
   @invalid_id ||
-    @unauthorized_user || 
+    @unauthorized_user ||
       @input_errors || (
         @storage.edit_board!(@id, @board_input_data)
         flash_message(:valid_board_edit)
@@ -134,7 +134,7 @@ post '/boards/:board_id/edit/:message_id/delete' do
 end
 
 post '/boards/:id/delete' do
-  @invalid_board_id || 
+  @invalid_board_id ||
     @unauthorized_user || (
       @storage.delete_board!(@id)
       flash_message(:valid_delete_board)
@@ -150,7 +150,7 @@ get '/users/:id/profile' do
 end
 
 post '/users/:id/profile' do
-  @invalid_user_id || 
+  @invalid_user_id ||
     @unauthorized_user ||
       @input_errors || (
         @storage.update_profile_data!(session[:user_id], @user_input_data)
