@@ -139,7 +139,7 @@ Relationships between entities:
 | User         | Private Message | 1:M                  |
 | Conversation | User            | M:M                  |
 
-Probably, the most arguable point in this approach is the inclusion of a `conversations` table. Why not just grouping the private messages by user 'a' and user 'b' to load all the ongoing conversations between the current user and others? We could 
+Probably, the most arguable point in this approach is the inclusion of a `conversations` table. Why not just grouping the private messages by user 'a' and user 'b' to load all the ongoing conversations between the current user and others? For example, we could do something like
 
 ## Other design choices
 
