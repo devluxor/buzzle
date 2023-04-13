@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   username varchar(30) UNIQUE NOT NULL,
   first_name varchar(40) NOT NULL,
@@ -26,7 +26,7 @@ VALUES
 '$2a$12$zRY6TtjDGb9Ti3OkPdZIS.G3tNWawBqRHpSato2Ly75u/fwq3ybNm',
 4, 'Friend of everybody', 'dog.png', '1963-04-09 17:22:47.493425' );
 
-CREATE TABLE boards (
+CREATE TABLE IF NOT EXISTS boards (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   author_id integer NULL REFERENCES users (id) ON DELETE SET NULL,
   created_on timestamp NOT NULL DEFAULT now(),
@@ -43,7 +43,7 @@ VALUES
 (3, '1969-04-12 17:22:47.493425', 'Abbey Road', 'Any ideas for the cover?', 'blue'),
 (1, '1966-11-09 17:22:47.493425', 'Good news, lads!!', 'I met a girl, she''s Japanese...', 'purple');
 
-CREATE TABLE board_messages (
+CREATE TABLE IF NOT EXISTS board_messages (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   board_id integer NOT NULL REFERENCES boards (id) ON DELETE CASCADE,
   author_id integer REFERENCES users (id) ON DELETE SET NULL,
@@ -65,7 +65,7 @@ VALUES
 (1, 1, '1966-12-29 17:22:47.493425', 'Look, Edgar Allan Poe!'),
 (4, 1, '1969-11-09 17:22:47.493425', 'Friends, I''ve got to tell you something...');
 
-CREATE TABLE conversations (
+CREATE TABLE IF NOT EXISTS conversations (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   user_a_id integer REFERENCES users (id) ON DELETE CASCADE,
   user_b_id integer REFERENCES users (id) ON DELETE CASCADE,
@@ -79,7 +79,7 @@ VALUES
 (1, 3, '1970-01-01 19:22:12.321211'),
 (1, 4, '1970-01-01 19:22:12.321211');
 
-CREATE TABLE private_messages (
+CREATE TABLE IF NOT EXISTS private_messages (
   id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   sender_id integer REFERENCES users (id) ON DELETE CASCADE,
   receiver_id integer REFERENCES users (id) ON DELETE CASCADE,
