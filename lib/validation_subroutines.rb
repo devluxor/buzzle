@@ -4,7 +4,7 @@ set(:request_method) do |method|
   condition { request.request_method == method }
 end
 
-# Request-specific validation subroutines: (see ../DESIGN.md)
+# Request-specific validation subroutines: (Plase, see ../DESIGN.md)
 
 ## Each route:
 # Checks if the user is logged in

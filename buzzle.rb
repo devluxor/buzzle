@@ -28,7 +28,8 @@ end
 
 # Routes:
 # (See ./lib/validation_subroutines.rb, ./lib/user_input_validation.rb
-#  to see request-specific control access and validation subroutines)
+#  to see request-specific control access and validation subroutines,
+# and ./DESIGN.md for a more detailed explanation)
 
 get '/' do
   @invalid_page || (
