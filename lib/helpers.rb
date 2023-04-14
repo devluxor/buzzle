@@ -74,16 +74,25 @@ helpers do
   end
 
   def log_out_user
-    session.delete :logged_in
-    session.delete :portrait
-    session.delete :user_id
-    session.delete :username
-    session.delete :first_name
-    session.delete :last_name
-    session.delete :points
-    session.delete :search_term_minicache
+    purge_user_data
     @user_input_data = nil
     @password_update_input_data = nil
+  end
+
+  def purge_user_data
+    [
+      :logged_in, 
+      :portrait, 
+      :user_id, 
+      :username, 
+      :first_name, 
+      :last_name, 
+      :points, 
+      :search_term_minicache,
+      :board_cache,
+      :board_message_cache,
+      :private_message_cache
+    ].each { |user_data| session.delete(user_data) }
   end
 
   # refactor:
@@ -161,10 +170,11 @@ helpers do
 
   def capture_input_board_data
     @board_input_data = {
-      title: clean(params[:title]),
-      description: clean(params[:description]),
+      title: session&.[](:board_cache)&.[](:title) || clean(params[:title]),
+      description: session&.[](:board_cache)&.[](:description) || clean(params[:description]),
       color: clean(params[:color])
     }
+    save_cache(@board_input_data)
   end
 
   def capture_new_password_input
@@ -280,5 +290,21 @@ helpers do
 
   def format_text(text)
     text.gsub("\n", '<br>')
+  end
+
+  def save_cache(data, type: nil)
+    if data.is_a?(Hash)
+      session[:board_cache] = {}
+      data.each { |parameter, input| session[:board_cache][parameter] ||= input }
+    elsif type == :board_message
+      session[:board_message_cache] = data
+    else
+      session[:private_message_cache] = data
+    end
+  end
+
+  def purge_cache(type)
+    cache_key = "#{type}_cache".to_sym
+    session.delete(cache_key)
   end
 end

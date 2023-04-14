@@ -65,7 +65,7 @@
           <div class='modal-content'>
             <form action="/boards/<%= @id %>" method="post">
               <label for="message">Say something: </label>
-              <textarea class="board message-textarea" name="message"></textarea>
+              <textarea class="board message-textarea" name="message"><%= session&.[](:board_message_cache) %></textarea>
               <button type="submit">Post the message!</button>
             </form>
           </div>

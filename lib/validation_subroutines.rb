@@ -70,6 +70,7 @@ before '/boards/:id', request_method: :post do
   access_control_subroutine
   @id = params[:id]
   @message = remove_extra_newlines(params[:message].strip)
+  save_cache(@message, type: :board_message)
   @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
   @input_errors = check_parameters("/boards/#{@id}") { validate_message(@message) }
 end
@@ -85,6 +86,7 @@ before '/boards/:id/edit', request_method: :post do
   access_control_subroutine
   @id = params[:id]
   capture_input_board_data
+  save_cache(@board_input_data)
   @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
   @unauthorized_user = check_parameters("/boards/#{@id}") { validate_board_rights(@id) }
   @input_errors = check_parameters("/boards/#{@id}/edit") { validate_board_data(@board_input_data) }
@@ -104,6 +106,7 @@ before '/boards/:board_id/edit/:message_id', request_method: :post do
   @board_id = params[:board_id]
   @message_id = params[:message_id]
   @new_message = remove_extra_newlines(params[:message].strip)
+  save_cache(@new_message, type: :board_message)
   @invalid_board_id = check_parameters('/') { validate_board_identifier(@board_id) }
   @invalid_message_id = check_parameters("/boards/#{@board_id}") { validate_board_message_id(@board_id, @message_id) }
   @unauthorized_user = check_parameters('/') { validate_board_message_rights(@message_id) }
@@ -130,6 +133,7 @@ before '/send_message', request_method: :post do
   access_control_subroutine
   @receiver_id = params[:receiver_id]
   @message = remove_extra_newlines(params[:message].strip)
+  save_cache(@message, type: :private_message_cache)
   @invalid_user_id = check_parameters('/') { validate_user_identifier(@receiver_id) }
   @input_errors = check_parameters("/users/#{@receiver_id}/profile") { validate_message(@message) }
 end

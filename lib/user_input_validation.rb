@@ -302,7 +302,7 @@ def check_board_info(data, type: :title)
       :short_description
     end
 
-  @board_input_data.delete(type) if error_found
+  session&.[](:board_cache)&.delete(type) if error_found
   error_found
 end
 

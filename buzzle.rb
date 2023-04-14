@@ -66,6 +66,7 @@ end
 post '/new_board' do
   @input_errors || (
     @storage.add_new_board!(@board_input_data, session[:user_id])
+    purge_cache(:board)
     flash_message(:valid_board)
     redirect '/'
   )
@@ -84,6 +85,7 @@ post '/boards/:id' do
   @invalid_id ||
     @input_errors || (
       @storage.add_board_message!(@message, session[:user_id], @id)
+      purge_cache(:board_message)
       redirect "/boards/#{@id}"
     )
 end
@@ -102,6 +104,7 @@ post '/boards/:id/edit' do
       @input_errors || (
         @storage.edit_board!(@id, @board_input_data)
         flash_message(:valid_board_edit)
+        purge_cache(:board)
         redirect '/'
       )
 end
@@ -121,6 +124,7 @@ post '/boards/:board_id/edit/:message_id' do
       @unauthorized_user ||
         @input_errors || (
           @storage.edit_board_message!(@new_message, @message_id)
+          purge_cache(:board_message)
           redirect "/boards/#{@board_id}"
         )
 end
@@ -167,6 +171,7 @@ post '/send_message' do
       @storage.send_private_message!(@message, session[:user_id], @receiver_id)
       conversation_id = @storage.find_last_private_message(session[:user_id], @receiver_id)['conversation_id']
       flash_message(:valid_message)
+      purge_cache(:private_message)
       redirect "conversations/#{conversation_id}"
     )
 end

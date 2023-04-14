@@ -7,7 +7,7 @@
       <div class="profile-names">
         <form action="/boards/<%= @board_id %>/edit/<%= @message_id %>" method="post">
           <label for="message">Your message: </label>
-          <textarea class="edit-board message-textarea" name="message"><%= @message %></textarea>
+          <textarea class="edit-board message-textarea" name="message"><%= session&.[](:board_message_cache) || @message %></textarea>
           <button type="submit">Edit your message!</button>
         </form>
       </div>

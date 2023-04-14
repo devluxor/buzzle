@@ -57,7 +57,7 @@
             <form action="/send_message" method="post">
               <input type="text" name="receiver_id" value ="<%= @user_info['id'] %>" hidden>
               <label for="message">Message: </label>
-              <textarea class="message-textarea" name="message"></textarea>
+              <textarea class="message-textarea" name="message"><%= session&.[](:private_message_cache) %></textarea>
               <button type="submit">Send the message!</button>
             </form>
           </div>
