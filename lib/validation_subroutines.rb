@@ -69,7 +69,7 @@ end
 before '/boards/:id', request_method: :post do
   access_control_subroutine
   @id = params[:id]
-  @message = remove_extra_newlines(params[:message])
+  @message = remove_extra_newlines(params[:message].strip)
   @invalid_id = check_parameters('/') { validate_board_identifier(@id) }
   @input_errors = check_parameters("/boards/#{@id}") { validate_message(@message) }
 end
