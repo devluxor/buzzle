@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/content_for'
 require 'tilt/erubis'
+require 'dotenv/load'
 
 require_relative 'db/database_interaction'
 require_relative 'lib/helpers'
@@ -14,7 +15,7 @@ UNAUTHORIZED = 401
 NOT_FOUND = 404
 UNPROCESSABLE_CONTENT = 422
 
-SESSION_SECRET = '89ff09c339ac1df5cb1f9e1959ef913f1828c1048f777ef05f0aec54de0f1453'.freeze
+SESSION_SECRET = ENV['SESSION_SECRET']
 
 configure do
   set :erb, escape_html: true

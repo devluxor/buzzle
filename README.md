@@ -4,7 +4,7 @@
 
 Buzzle is a color-based, easy-to-use message board web application that also provides a private channel for the communication between users, with an informal, friendly user interface.
 
-# Features
+## Features
 
 This application allows the users to create, edit and delete their own message boards, on which every user with an account can read and post messages, customize his/her own profile, read other's profiles, send private messages to each other, search for terms in every public message posted, access to a history of every message posted by them, update the password and any profile data, and delete his/her account. 
 
@@ -20,7 +20,7 @@ For more information about the design decisions, SQL specifics, and more technic
 
 ## Software requirements
 
-This application has been built and run with **Ruby v3.1.2**, using **Sinatra v3.0.4** along the Puma server v6.1.1. **PostgreSQL v12.14** was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
+This application has been built and run with **Ruby v3.2.5**, using **Sinatra v3.0.4** along the Puma server v6.1.1. **PostgreSQL v12.14** was used to create and interact with the database. For more details about dependencies, please see the `Gemfile` in this same folder.
 
 The application was created using Visual Studio Code v1.75 on Ubuntu inside a WSL2 virtual machine, Windows 10.0.19044.
 
@@ -35,18 +35,28 @@ The following internet browsers were used to test the application:
 
 ## How to run the application
 
-First, unzip the `buzzle.zip` file in your preferred system folder.
+### Run the app as a container using Docker:
 
-Once on the terminal, inside the `buzzle/` folder, run `bundle install` to install all the Gem dependencies:
+Simply, within the app's root folder, run:
+
+```sh
+docker compose up
+```
+
+Once the image is built and running on your computer, visit <http://localhost:4567>
+
+### Old-school way
+
+Inside the `buzzle/` folder, run `bundle install` to install all the Gem dependencies:
 
 ```bash
-$ bundle install
+bundle install
 ```
 
 Then, to initialize the database in your system, execute:
 
 ```bash
-$ createdb buzzle && psql -d buzzle < ./db/schema.sql
+createdb buzzle && psql -d buzzle < ./db/schema.sql
 ```
 
 This will also add some seed data to the database as a sample; these are the sample users' credentials:
@@ -73,7 +83,7 @@ As an option, in order to safely load the correct version of certain application
 $ bundle exec ruby buzzle.rb
 ```
 
-Finally, to access the app, use the default URL `http://localhost:4567/` in your browser of choice.
+Finally, to access the app, use the default URL <http://localhost:4567> in your browser of choice.
 
 
 ## Configuration
