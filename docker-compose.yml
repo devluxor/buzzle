@@ -1,0 +1,19 @@
+services:
+  buzzle:
+    build: .
+    container_name: buzzle
+    depends_on:
+      - buzzle-db
+    ports:
+      - 4567:4567
+
+  buzzle-db:
+    image: postgres:alpine
+    container_name: buzzle-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: buzzle
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
