@@ -13,7 +13,7 @@ NEW_BOARD = 10
 
 class DatabaseInteraction
   def initialize(logger)
-    @db = PG.connect(dbname: 'buzzle')
+    @db = PG.connect(dbname: 'buzzle', host: 'buzzle-db', port: '5432', user: 'postgres', password: 'postgres')
     @logger = logger
   end
 
