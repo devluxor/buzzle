@@ -34,6 +34,7 @@ The following internet browsers were used to test the application:
 | Microsoft Edge  | 12.5          | No issues found | No issues found |     ✅  |
 
 ## How to run the application
+
 First, unzip the `buzzle.zip` file in your preferred system folder.
 
 Once on the terminal, inside the `buzzle/` folder, run `bundle install` to install all the Gem dependencies:

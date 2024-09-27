@@ -1,8 +1,8 @@
-## An overview of the overall functioning of the application
+# An overview of the overall functioning of the application
 
 A Sinatra application is basically a collection of 'routes' or method/URL _patterns_ of HTTP requests sent from the client to the server, and the definition of the corresponding HTTP response to those requests; in other words, for every request with a path defined in a route or _pattern_, with a specified HTTP method, there is a code behavior and an HTTP response, defined inside each route block.
 
-For example, if we want the user to see the login page, we define a route with the HTTP method used to send that request to the server, `GET`. Then, we add a pattern with the desired URL path, `/login`, and we define a block that will contain the behavior that the server will carry out after a request with these characteristics. The return value of the block will determine, at least, the response body passed on to the HTTP client. In Buzzle, most of the time this will be a string containing HTML code defined in a `.erb` template, loaded by an `erb` method; it can also be a redirection to other pre-defined route:
+For example, if we want the user to see the login page, we define a route with the HTTP method used to send that request to the server, `GET`. Then, we add a pattern with the desired URL path, `/login`, and we define a block that will contain the behavior that the server will carry out after a request with these characteristics. The return value of the block will determine, at least, the response body passed on to the HTTP client. In Buzzle, most of the time this will be a string containing HTML code defined in a `.erb` template, loaded by an `erb` method; it can also be a redirection to another pre-defined route:
 
 ```ruby
 get '/login' do
@@ -184,7 +184,6 @@ One aspect that I'd like to talk about is when a user deletes his or her account
 
 ```sql
 DELETE FROM boards WHERE author_id IS NULL AND created_on < now() - INTERVAL '1 DAY'
--- I enjoyed learning about the  INTERVAL() function. It's very useful in cases like these.
 ```
 
 Another feature I wanted my application to have is a way to notify the user that he or she has unread messages. This was achieved by the inclusion of an extra `read` column in the `private_messages` table, with a boolean type. `false` by default, it is updated to `true` the time the conversation that the private messages refers to is accessed. This was another reason to have a `conversations` table in the database. When the user identifier is the same as any private message's receiver identifier, with a `read` flag of `false`, a little exclamation sign is shown over the 'Conversations' icon on the left navigation bar.
