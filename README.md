@@ -37,13 +37,23 @@ The following internet browsers were used to test the application:
 
 ### Run the app as a container using Docker:
 
-Simply, within the app's root folder, run:
+Please, add create an `.env` file with the following content:
+
+```env
+SESSION_SECRET=[secret]
+```
+
+Where `[secret]` (without the brackets) is an alphanumeric 32 bytes string.
+
+Then, simply, within the app's root folder, run:
 
 ```sh
 docker compose up
 ```
 
-Once the image is built and running on your computer, visit <http://localhost:4567>
+Once the image is built and running on your computer, visit <http://localhost:4567>. 
+
+Note that the Docker image has been optimized to be lightweight (see [Dockerfile](./Dockerfile))
 
 ### Old-school way
 

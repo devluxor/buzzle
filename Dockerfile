@@ -1,5 +1,8 @@
 # Stage 1: Build the application with dependencies
-FROM ruby:3.2-alpine as builder
+
+ARG SESSION_SECRET
+
+FROM ruby:3.2-alpine AS builder
 
 # Install build dependencies for bcrypt and other native gems
 RUN apk add --no-cache build-base \
@@ -17,7 +20,9 @@ WORKDIR /usr/src/app
 COPY Gemfile Gemfile.lock ./
 
 # Install bundler and then the gems using bundler
-RUN gem install bundler && bundle config set --local without 'development test' && bundle install
+RUN gem install bundler && \
+    bundle config set --local without 'development test' && \
+    bundle install
 
 # Copy the rest of the application code
 COPY . .
@@ -26,7 +31,7 @@ COPY . .
 FROM ruby:3.2-alpine
 
 # Install runtime dependencies required to run the app and the PostgreSQL client library
-RUN apk add --no-cache libstdc++ libgcc postgresql-libs bash openssl
+RUN apk add --no-cache libstdc++ libgcc postgresql-libs bash openssl 
 
 # Set the working directory inside the final container
 WORKDIR /usr/src/app
