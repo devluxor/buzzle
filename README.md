@@ -37,13 +37,13 @@ The following internet browsers were used to test the application:
 
 ### Run the app as a container using Docker:
 
-Please, add create an `.env` file with the following content:
+Please, add create a `.env` file with the following content:
 
 ```env
 SESSION_SECRET=[secret]
 ```
 
-Where `[secret]` (without the brackets) is an alphanumeric 32 bytes string.
+Where `[secret]` (without the brackets) is an alphanumeric 32 bytes string. You can generate one [here](https://numbergenerator.org/random-32-digit-hex-codes-generator).
 
 Then, simply, within the app's root folder, run:
 
