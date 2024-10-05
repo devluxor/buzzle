@@ -11,9 +11,16 @@ BOARD_MESSAGE = 1
 PRIVATE_MESSAGE = 5
 NEW_BOARD = 10
 
+# DB
+DB_NAME = ENV['DB_NAME'] || 'buzzle'
+PORT = ENV['DB_PORT'] || '5432'
+HOST = ENV['DB_HOST'] || 'buzzle-db'
+USER = ENV['DB_USER'] || 'postgres'
+PASSWORD = ENV['DB_PASSWORD'] || 'postgres'
+
 class DatabaseInteraction
   def initialize(logger)
-    @db = PG.connect(dbname: 'buzzle', host: 'buzzle-db', port: '5432', user: 'postgres', password: 'postgres')
+    @db = PG.connect(dbname: DB_NAME, host: DB_HOST, port: DB_PORT, user: DB_USER, password: DB_PASSWORD)
     @logger = logger
   end
 
