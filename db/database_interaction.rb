@@ -13,10 +13,10 @@ NEW_BOARD = 10
 
 # DB
 DB_NAME = ENV['DB_NAME'] || 'buzzle'
-PORT = ENV['DB_PORT'] || '5432'
-HOST = ENV['DB_HOST'] || 'buzzle-db'
-USER = ENV['DB_USER'] || 'postgres'
-PASSWORD = ENV['DB_PASSWORD'] || 'postgres'
+DB_PORT = ENV['DB_PORT'] || '5432'
+DB_HOST = ENV['DB_HOST'] || 'buzzle-db'
+DB_USER = ENV['DB_USER'] || 'postgres'
+DB_PASSWORD = ENV['DB_PASSWORD'] || 'postgres'
 
 class DatabaseInteraction
   def initialize(logger)
